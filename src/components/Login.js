@@ -2,34 +2,31 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import google from "../img/google.png";
-import appImg2 from "../img/indian-male-dancing.png";
-function Registo() {
+
+import appImg3 from "../img/old-man-listening-songs-on-a-phone.png";
+
+function Login() {
   //UseState
   const [erro, setErro] = useState();
   const [criandoConta, setcriandoConta] = useState(false);
   //useRef
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
   //UseHistory
   const history = useHistory();
   //Função Registo
-  const { signUp } = useAuth();
+  const { login } = useAuth();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setErro("Passwords do not match, please try again");
-    }
+
     try {
       setErro();
       setcriandoConta(true);
-      await signUp(emailRef.current.value, passwordRef.current.value);
+      await login(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch {
-      setErro(
-        "The email/password is not available or do not meet the minimum requirements"
-      );
+      setErro("Failed to Login");
     }
     setcriandoConta(false);
   };
@@ -37,7 +34,7 @@ function Registo() {
     <div className="body">
       <div className="registoBox">
         <div className="coluna-form">
-          <h2>Sign Up</h2>
+          <h2>Log In</h2>
           {erro && <h2>{erro}</h2>}
 
           <button className="google-sign-in">
@@ -50,31 +47,29 @@ function Registo() {
               <span>Email</span>
               <input required type="email" ref={emailRef} />
             </section>
-            <div className="passwords">
+            <div>
               <section id="password">
                 <span>Password</span>
                 <input required type="password" ref={passwordRef} />
               </section>
-              <section id="Password-confirm">
-                <span>Confirmar Password</span>
-                <input required type="password" ref={passwordConfirmRef} />
-              </section>
             </div>
-            <button disabled={criandoConta} type="submit">
-              Sign In
-            </button>
+            <button type="submit">Log In</button>
           </form>
-
           <div className="help">
-            Already have an account? <Link to="/login">Login</Link>
+            <div>
+              Need an account? <Link to="/signup">Sign Up</Link>
+            </div>
+            <div>
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </div>
           </div>
         </div>
       </div>
       <div className="coluna-logo">
-        <img src={appImg2} alt="" />
+        <img src={appImg3} alt="" />
       </div>
     </div>
   );
 }
 
-export default Registo;
+export default Login;

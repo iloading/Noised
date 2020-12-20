@@ -1,0 +1,7 @@
+Primary: #7271a4
+p-dark:#454675
+p-light:#a29fd6
+
+Secundary:#47cdfe
+s-dark:#009ccb
+s-light:#86ffff
