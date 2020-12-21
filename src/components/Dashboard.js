@@ -1,36 +1,27 @@
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 import Navbar from "./Navbar";
+import Conteudo from "./Conteudo";
+import axios from "axios";
 
 function Home() {
-  //UseState
-  const [erro, setErro] = useState();
-  //Firebase AUTH
-  const { currentUser, logOut } = useAuth();
-
-  const logOutHandler = async (e) => {
-    setErro("");
-    try {
-      await logOut();
-    } catch {
-      setErro("Failed to LogOut");
-    }
-  };
+  const [data, setData] = useState();
+  //DADOS API
+  useEffect(() => {
+    axios
+      .get("https://api.deezer.com/chart/0/playlists")
+      .then((data) => {
+        console.log(data.data.data);
+        setData(data.data.data);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   return (
     <>
       <main className="main">
         <Navbar />
-
-        <div className="conteudo">
-          <h1>HOME</h1>
-          {erro && <h2>{erro}</h2>}
-          <strong>Email: </strong>
-          {currentUser.email}
-          <Link to="/update-profile">Update Profile</Link>
-          <button onClick={logOutHandler}>Log Out</button>
-        </div>
+        <Conteudo data={data} />
       </main>
     </>
   );

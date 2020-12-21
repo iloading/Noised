@@ -3,16 +3,20 @@ import Navigation from "./Navigation";
 
 function Navbar() {
   return (
-    <div className="sideNav">
+    <nav className="sideNav">
       <section className="forApp">
-        <span>Navegação</span>
-        <span>Hit Me</span>
+        <h1>Navegação</h1>
+        <ul>
+          <li>Navegação</li>
+        </ul>
       </section>
       <section className="forUser">
-        <span>Library</span>
-        <span>Albums</span>
+        <h1>Library</h1>
+        <ul>
+          <li>Library</li>
+        </ul>
       </section>
-    </div>
+    </nav>
   );
 }
 

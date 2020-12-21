@@ -2,19 +2,3 @@
   display: flex;
   flex-direction: row;
 }
-.sideNav {
-  height: 100vh;
-  width: 15%;
-  min-width: 15rem;
-  background-color: #36365c;
-
-  span {
-    display: block;
-    color: white;
-  }
-
-  section {
-    height: 50%;
-    text-align: center;
-  }
-}
