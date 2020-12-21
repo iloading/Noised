@@ -1,7 +1,7 @@
 import "./styles/app.scss";
 //COMPONENTES
 import Registo from "./components/Registo";
-import Home from "./components/Home";
+import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
 //FIREBASE AUTH
@@ -16,8 +16,7 @@ function App() {
       <Router>
         <AuthProvider>
           <Switch>
-            <PrivateRoute exact path="/" component={Home} />
-
+            <PrivateRoute exact path="/" component={Dashboard} />
             <Route path="/signup">
               <Registo />
             </Route>

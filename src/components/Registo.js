@@ -14,7 +14,7 @@ function Registo() {
   //UseHistory
   const history = useHistory();
   //Função Registo
-  const { signUp } = useAuth();
+  const { signUp, loginWithGoogle } = useAuth();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -25,22 +25,33 @@ function Registo() {
       setErro();
       setcriandoConta(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
+      setcriandoConta(false);
       history.push("/");
     } catch {
       setErro(
         "The email/password is not available or do not meet the minimum requirements"
       );
     }
-    setcriandoConta(false);
+  };
+  const GooglesubmitHandler = async (e) => {
+    try {
+      setcriandoConta(true);
+      setErro("");
+      await loginWithGoogle();
+      setcriandoConta(false);
+      history.push("/");
+    } catch {
+      setErro("Failed to Sign Up, please try again");
+    }
   };
   return (
     <div className="body">
       <div className="registoBox">
         <div className="coluna-form">
-          <h2>Sign Up</h2>
-          {erro && <h2>{erro}</h2>}
+          <h1>Sign Up</h1>
+          {erro && <h2 className="erro">{erro}</h2>}
 
-          <button className="google-sign-in">
+          <button onClick={GooglesubmitHandler} className="google-sign-in">
             <img src={google} alt="" />
             <span>Sign in with google</span>
           </button>
@@ -52,11 +63,13 @@ function Registo() {
             </section>
             <div className="passwords">
               <section id="password">
-                <span>Password</span>
+                <span>Password </span>
+                <p className="info">(min 6 digits)</p>
                 <input required type="password" ref={passwordRef} />
               </section>
               <section id="Password-confirm">
-                <span>Confirmar Password</span>
+                <span>Confirm Password </span>
+                <p className="info">(min 6 digits)</p>
                 <input required type="password" ref={passwordConfirmRef} />
               </section>
             </div>

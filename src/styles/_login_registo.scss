@@ -44,16 +44,16 @@
   top: 50%;
   left: 30%;
   width: 45vw;
-  height: 75vh;
+  height: fit-content;
   transform: translate(-50%, -50%);
   border-radius: 15px;
   box-shadow: 1px 2px 50px rgba(0, 0, 0, 0.5);
 }
 
 .coluna-form {
-  color: white;
+  color: #36365c !important;
   width: 100%;
-  h2 {
+  h1 {
     margin: 0rem 0rem 2rem 0rem;
     text-align: left;
     font-size: 3rem;
@@ -64,8 +64,8 @@
     font-size: 1rem;
     display: flex;
     justify-content: center;
-    color: white;
     align-items: center;
+    color: white;
     background: #36365c;
     border: none;
     border-radius: 10px;
@@ -83,9 +83,6 @@
     }
     &:focus {
       outline: none;
-    }
-    span {
-      color: white;
     }
     img {
       width: 1rem;
@@ -106,18 +103,15 @@
         outline: none;
       }
     }
-    span {
-      color: #36365c;
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
     .passwords {
       display: flex;
       justify-content: space-between;
       section {
         margin: 0;
         width: 45%;
+      }
+      .info {
+        font-size: 0.65rem;
       }
     }
   }
@@ -130,12 +124,12 @@
     text-align: center;
     margin-top: 2rem;
     font-size: small;
-    color: #36365c;
+
     a {
       color: darkorange;
       text-decoration: none;
       &:active {
-        color: #7271a4;
+        color: #ff4800;
       }
     }
     p {
@@ -143,6 +137,38 @@
       font-size: large;
       color: darkorange;
     }
+  }
+  .erro {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 1rem;
+    color: black;
+    font-weight: 100;
+    font-size: 1rem;
+    width: 100%;
+    height: fit-content;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin: 0;
+    background-color: rgba(255, 62, 62, 0.671);
+    transition: all 0.5s ease;
+  }
+  .sucesso {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 1rem;
+    color: black;
+    font-weight: 100;
+    font-size: 1rem;
+    width: 100%;
+    height: fit-content;
+    border: 2px solid rgb(81, 255, 0);
+    border-radius: 5px;
+    margin: 0;
+    background-color: rgba(218, 255, 184, 0.87);
+    transition: all 0.5s ease;
   }
 }
 .coluna-logo {
@@ -156,3 +182,38 @@
     width: 70%;
   }
 }
+@media screen and (max-width: 1024px) {
+  .passwords {
+    display: flex;
+    flex-direction: column;
+    section {
+      width: 100% !important;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .body {
+    overflow-y: scroll;
+  }
+  .coluna-logo {
+    display: none;
+  }
+  .registoBox {
+    border-radius: 0px;
+    box-shadow: inherit;
+    background: transparent;
+    padding: 1.5rem;
+    transition: all 0.5s ease;
+    width: 100vw;
+    height: fit-content;
+    position: static;
+    transform: translate(0%, 0%);
+  }
+  .passwords {
+    display: flex;
+    flex-direction: column;
+    section {
+      width: 100% !important;
+    }
+  }
+} ;

@@ -2,12 +2,11 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import google from "../img/google.png";
-
 import appImg3 from "../img/old-man-listening-songs-on-a-phone.png";
 
 function Login() {
   //UseState
-  const [erro, setErro] = useState();
+  const [erro, setErro] = useState("");
   const [criandoConta, setcriandoConta] = useState(false);
   //useRef
   const emailRef = useRef();
@@ -15,29 +14,40 @@ function Login() {
   //UseHistory
   const history = useHistory();
   //Função Registo
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      setErro();
       setcriandoConta(true);
+      setErro("");
       await login(emailRef.current.value, passwordRef.current.value);
+      setcriandoConta(false);
       history.push("/");
     } catch {
-      setErro("Failed to Login");
+      setErro("Failed to Login, please try again");
     }
-    setcriandoConta(false);
+  };
+  const GooglesubmitHandler = async (e) => {
+    try {
+      setcriandoConta(true);
+      setErro("");
+      await loginWithGoogle();
+      setcriandoConta(false);
+      history.push("/");
+    } catch {
+      setErro("Failed to Login, please try again");
+    }
   };
   return (
     <div className="body">
       <div className="registoBox">
         <div className="coluna-form">
-          <h2>Log In</h2>
-          {erro && <h2>{erro}</h2>}
+          <h1>Log In</h1>
+          {erro && <h2 className="erro">{erro}</h2>}
 
-          <button className="google-sign-in">
+          <button onClick={GooglesubmitHandler} className="google-sign-in">
             <img src={google} alt="" />
             <span>Sign in with google</span>
           </button>
@@ -53,7 +63,9 @@ function Login() {
                 <input required type="password" ref={passwordRef} />
               </section>
             </div>
-            <button type="submit">Log In</button>
+            <button disabled={criandoConta} type="submit">
+              Log In
+            </button>
           </form>
           <div className="help">
             <div>

@@ -1,13 +1,13 @@
-import React, { useState, useHistory } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 function Home() {
   //UseState
   const [erro, setErro] = useState();
   //Firebase AUTH
   const { currentUser, logOut } = useAuth();
-  //UseHistory
 
   const logOutHandler = async (e) => {
     setErro("");
@@ -20,14 +20,18 @@ function Home() {
 
   return (
     <>
-      <div>
-        <h1>HOME</h1>
-        {erro && <h2>{erro}</h2>}
-        <strong>Email: </strong>
-        {currentUser.email}
-        <Link to="/update-profile">Update Profile</Link>
-        <button onClick={logOutHandler}>Log Out</button>
-      </div>
+      <main className="main">
+        <Navbar />
+
+        <div className="conteudo">
+          <h1>HOME</h1>
+          {erro && <h2>{erro}</h2>}
+          <strong>Email: </strong>
+          {currentUser.email}
+          <Link to="/update-profile">Update Profile</Link>
+          <button onClick={logOutHandler}>Log Out</button>
+        </div>
+      </main>
     </>
   );
 }

@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import google from "../img/google.png";
-import appLogo from "../img/azul bola.png";
+
 import appImg from "../img/girl-enjoying-music.png";
 
 function ForgotPassword() {
@@ -21,7 +20,7 @@ function ForgotPassword() {
 
     try {
       setMensagem("");
-      setErro();
+      setErro("");
       setcriandoConta(true);
       await resetPassword(emailRef.current.value);
       setMensagem("Check your email to reset the password");
@@ -35,8 +34,8 @@ function ForgotPassword() {
       <div className="registoBox">
         <div className="coluna-form">
           <h1>Recover Password</h1>
-          {erro && <h2>{erro}</h2>}
-          {mensagem && <h2>{mensagem}</h2>}
+          {erro && <h2 className="erro">{erro}</h2>}
+          {mensagem && <h2 className="sucesso">{mensagem}</h2>}
 
           <form onSubmit={submitHandler}>
             <section id="email">
@@ -44,7 +43,9 @@ function ForgotPassword() {
               <input required type="email" ref={emailRef} />
             </section>
 
-            <button type="submit">Recover Password</button>
+            <button disabled={criandoConta} type="submit">
+              Recover Password
+            </button>
           </form>
           <div className="help">
             <h3>
