@@ -1,14 +1,15 @@
 import "./styles/app.scss";
 //COMPONENTES
-import Registo from "./components/Registo";
-import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
-import ForgotPassword from "./components/ForgotPassword";
+import Registo from "./landingPages/Registo";
+import Dashboard from "./landingPages/Dashboard";
+import Login from "./landingPages/Login";
+import ForgotPassword from "./landingPages/ForgotPassword";
 //FIREBASE AUTH
 import { AuthProvider } from "./context/AuthContext";
 //REACT ROUTER
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
+//Componente PrivateRoute para não deixar aceder a certas pág's sem Login
+import PrivateRoute from "./utility/PrivateRoute";
 
 function App() {
   return (

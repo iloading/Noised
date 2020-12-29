@@ -16,6 +16,7 @@ function Login() {
   //Função Registo
   const { login, loginWithGoogle } = useAuth();
 
+  //LOGIN COM EMAIL E PASSWORD
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -29,6 +30,7 @@ function Login() {
       setErro("Failed to Login, please try again");
     }
   };
+  //LOGIN COM GOOGLE
   const GooglesubmitHandler = async (e) => {
     try {
       setcriandoConta(true);
