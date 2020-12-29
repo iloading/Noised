@@ -4,7 +4,7 @@ import playlistReducer from "./PlaylistReducer";
 
 const rootReducers = combineReducers({
   home: homeReducer,
-  playlist: playlistReducer,
+  preview: playlistReducer,
 });
 
 export default rootReducers;

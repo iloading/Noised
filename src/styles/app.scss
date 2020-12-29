@@ -3,10 +3,20 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2c2c3c;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 }
 
 @import "./login_registo.scss";
 @import "./dashboard.scss";
 @import "./nav.scss";
 @import "./home.scss";
-@import "./playlistPreview.scss";
+@import "./Preview.scss";

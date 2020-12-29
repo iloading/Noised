@@ -1,13 +1,35 @@
 import axios from "axios";
-import { playlistURL } from "../api";
+import { playlistURL, albumURL, artistURL, podcastURL } from "../api";
 
-const loadPlaylist = (id, x, y) => async (dispatch) => {
-  const playlistData = await axios.get(playlistURL(id));
+const loadPlaylist = (id, type, x = null, y = null) => async (dispatch) => {
+  dispatch({ type: "LOADING_PLAYLIST" });
+  let apiData;
+
+  switch (type) {
+    case "_playlist":
+      apiData = await axios.get(playlistURL(id));
+
+      break;
+    case "_album":
+      apiData = await axios.get(albumURL(id));
+
+      break;
+    case "_artist":
+      apiData = await axios.get(artistURL(id));
+      break;
+    case "_podcast":
+      apiData = await axios.get(podcastURL(id));
+      break;
+
+    default:
+      break;
+  }
 
   dispatch({
-    type: "FETCH_PLAYLIST",
+    type: "FETCH_DATA",
     payload: {
-      playlist: playlistData.data,
+      data: apiData.data,
+      type: type,
       x: x,
       y: y,
     },

@@ -1,0 +1,141 @@
+.card-shadow {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.playlist {
+  border-radius: 1rem;
+  background-color: #3d3d59;
+  -webkit-box-shadow: 1px 1px 33px -8px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 1px 1px 33px -8px rgba(0, 0, 0, 1);
+  box-shadow: 1px 1px 33px -8px rgba(0, 0, 0, 1);
+  position: absolute;
+  width: 25vw;
+  height: 30vw;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-size: 0.75rem;
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+.playlistHead {
+  background-color: #2c2c3c;
+  display: flex;
+  align-items: center;
+
+  height: 20%;
+
+  img {
+    height: 100%;
+    // border-radius: 10px;
+    cursor: pointer;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 1rem;
+    h2 {
+      margin: 0;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    span {
+      font-size: smaller;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      height: 65%;
+      overflow-y: hidden;
+    }
+  }
+}
+.tabelaPreview {
+  height: 80%;
+  overflow-y: scroll;
+  padding: 1rem 0rem;
+  table {
+    width: 100%;
+  }
+  tbody {
+    display: flex;
+    flex-direction: column;
+  }
+  tr {
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    &:hover {
+      background-color: #2c2c3c;
+    }
+  }
+  td {
+    display: flex;
+    align-items: center;
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .duration {
+    margin-right: 0.5rem;
+  }
+  .musica {
+    margin-left: 0.5rem;
+  }
+  .musica-title {
+  }
+  .musica-artist {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2c2c3c;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+.ArtistPreview {
+  background-color: #2c2c3c;
+  align-items: center;
+  text-align: center;
+
+  .heightArtist {
+    width: 100%;
+  }
+
+  img {
+    border-radius: 50%;
+    margin-top: 5%;
+  }
+
+  h2 {
+    margin: 0;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.marginArtist {
+  p {
+    padding-bottom: 5%;
+  }
+}

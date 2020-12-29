@@ -4,8 +4,9 @@ import CarouselItem from "./CarouselItem";
 //ICONS
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-
-function Carousel({ data, titulo }) {
+//FRAMER MOTION
+import { motion } from "framer-motion";
+function Carousel({ data, titulo, type }) {
   //Lógica Local de Scroll de Carrosséis
 
   //UseRef para scrollButtons
@@ -40,14 +41,19 @@ function Carousel({ data, titulo }) {
           </button>
         </div>
       </div>
-      <div className="carrossel" ref={refCarrossel}>
+      <motion.div className="carrossel" ref={refCarrossel}>
         {data &&
           data.map((item) => (
             <>
-              <CarouselItem item={item} key={item.id} id={item.id} />
+              <CarouselItem
+                item={item}
+                key={item.id}
+                id={item.id}
+                type={type}
+              />
             </>
           ))}
-      </div>
+      </motion.div>
     </>
   );
 }

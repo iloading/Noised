@@ -8,3 +8,6 @@ export const topPodcastsURL = () => `${baseUrl}chart/0/podcasts`;
 
 //DETAILS
 export const playlistURL = (id) => `${baseUrl}playlist/${id}`;
+export const albumURL = (id) => `${baseUrl}album/${id}`;
+export const artistURL = (id) => `${baseUrl}artist/${id}`;
+export const podcastURL = (id) => `${baseUrl}podcast/${id}`;

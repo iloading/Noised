@@ -12,3 +12,33 @@ nav {
     }
   }
 }
+
+.forAppIcons {
+  display: flex;
+  padding: 5%;
+  align-items: center;
+}
+
+.forUser {
+  margin-top: 20%;
+  h1 {
+    padding: 5%;
+  }
+}
+
+.forUserPlaylists {
+  margin-top: 20%;
+  h1 {
+    font-size: 1rem;
+    padding: 5%;
+  }
+}
+
+.sideNav {
+  display: flex;
+  align-items: center;
+
+  .navContentWidth {
+    width: 100%;
+  }
+}
