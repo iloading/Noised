@@ -12,14 +12,15 @@ import { chooseURL } from "../utility/URLchoice";
 
 function CarouselItem({ item, id, type }) {
   //Mudar de página
+  const dispatch = useDispatch();
   const history = useHistory();
   const openPage = () => {
+    //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
+    dispatch({ type: "LOADING_PLAYLIST" });
     const tipoPagina = type.split("_")[1];
-    console.log(tipoPagina);
     history.push(`/${tipoPagina}/${id}`);
   };
   //RENDERIZAR PREVIEW
-  const dispatch = useDispatch();
   const loadPlaylistHandler = (e) => {
     const elemento = e.target;
 

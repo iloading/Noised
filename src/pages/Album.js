@@ -7,7 +7,7 @@ import loadPlaylist from "../actions/playlistAction";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-function Playlist() {
+function Album() {
   //ROUTER
   const location = useLocation();
   const pathID = location.pathname.split("/")[2];
@@ -15,7 +15,7 @@ function Playlist() {
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadPlaylist(pathID, "_playlist"));
+    dispatch(loadPlaylist(pathID, "_album"));
   }, [dispatch, pathID]);
 
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)
@@ -25,13 +25,13 @@ function Playlist() {
       {!isLoading && (
         <div className="playlist_album">
           <div className="mediaHead">
-            <img src={media.picture_medium} alt={media.picture_medium} />
+            <img src={media.cover_medium} alt={media.cover_medium} />
             <div>
               <span>{media.type}</span>
               <h2>{media.title}</h2>
 
               <p>
-                By <span>{media.creator.name}</span>
+                By <span>{media.artist.name}</span>
               </p>
               <p>
                 {media.nb_tracks} tracks, {media.duration} min<span></span>
@@ -42,18 +42,17 @@ function Playlist() {
           <div className=" tabelaMedia">
             <table cellSpacing="0" cellPadding="0">
               <thead>
-                <tr className="playlist-tr">
+                <tr className="album-tr">
                   <td></td>
                   <td></td>
                   <td>Title</td>
-                  <td>Artist</td>
-                  <td>Album</td>
+
                   <td className="music-duration">Duration</td>
                 </tr>
               </thead>
               <tbody>
                 {media.tracks.data.map((chart) => (
-                  <tr key={chart.id} className="playlist-tr">
+                  <tr key={chart.id} className="album-tr">
                     <td className="play-btn">
                       <PlayCircleFilledWhiteIcon />
                     </td>
@@ -61,12 +60,7 @@ function Playlist() {
                       <FavoriteBorderIcon />
                     </td>
                     <td className="music-title">{chart.title}</td>
-                    <td className="music-artist">
-                      <span>{chart.artist.name}</span>
-                    </td>
-                    <td className="music-artist">
-                      <span>{chart.album.title}</span>
-                    </td>
+
                     <td className="music-duration">{chart.duration}</td>
                   </tr>
                 ))}
@@ -79,4 +73,4 @@ function Playlist() {
   );
 }
 
-export default Playlist;
+export default Album;

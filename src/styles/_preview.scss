@@ -73,6 +73,7 @@
     cursor: pointer;
     display: flex;
     padding: 0.5rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     align-items: center;
     justify-content: space-between;
     &:hover {
@@ -137,5 +138,21 @@
 .marginArtist {
   p {
     padding-bottom: 5%;
+  }
+}
+
+.artistMusicList {
+  tr {
+    justify-content: end;
+  }
+  tfooter {
+    text-align: center;
+  }
+  h1 {
+    padding-top: 10%;
+  }
+
+  .previewImgSong {
+    width: 50%;
   }
 }

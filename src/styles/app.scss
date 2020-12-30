@@ -4,10 +4,10 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   &::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.75rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #2c2c3c;
+    background-color: rgba(68, 68, 92, 1);
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
@@ -20,3 +20,4 @@
 @import "./nav.scss";
 @import "./home.scss";
 @import "./Preview.scss";
+@import "./playlistAlbum.scss";

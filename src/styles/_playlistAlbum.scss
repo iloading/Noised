@@ -1,0 +1,140 @@
+.playlist_album {
+  color: white;
+  /*background-color: #2c2c3c;*/
+  background-color: transparent;
+  width: 100%;
+  max-width: 1650px;
+  margin: auto;
+  height: 100vh;
+  overflow-y: auto;
+}
+.mediaHead {
+  background: rgb(44, 44, 60);
+  background: linear-gradient(
+    0deg,
+    rgba(44, 44, 60, 1) 0%,
+    rgba(68, 68, 92, 1) 100%
+  );
+  display: flex;
+  align-items: center;
+  height: 30vh;
+  padding: 2rem 4rem;
+  img {
+    height: 100%;
+    border-radius: 10px;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 1rem;
+
+    h2 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    span {
+      font-size: smaller;
+    }
+    p {
+      font-size: smaller;
+      color: rgba(255, 255, 255, 0.5);
+      height: 65%;
+      overflow-y: hidden;
+      span {
+        font-size: medium;
+        cursor: pointer;
+        color: white;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+.tabelaMedia {
+  font-weight: 500;
+  font-size: 0.8rem;
+  padding: 1rem 0rem;
+  table {
+    width: 100%;
+    .playlist-tr {
+      grid-template-columns: 0.1fr 0.1fr 1fr 1fr 1fr 1fr;
+    }
+    .album-tr {
+      grid-template-columns: 0.1fr 0.1fr 1fr 1fr;
+    }
+    tr {
+      display: grid;
+
+      td {
+        min-width: 56px;
+        padding: 0rem 1rem;
+      }
+    }
+  }
+
+  thead {
+    tr {
+      margin: 0rem 4rem;
+      padding: 0.5rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      .music-duration {
+        display: flex;
+        justify-self: flex-end;
+      }
+    }
+    td {
+      font-size: 1rem;
+      font-weight: 100;
+    }
+  }
+  tbody {
+    tr {
+      margin: 0rem 4rem;
+      padding: 0.5rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      align-items: center;
+      justify-content: space-between;
+      &:hover {
+        background-color: #44445c;
+      }
+    }
+    td {
+      display: flex;
+      align-items: center;
+    }
+    .play-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .favorite-btn {
+      svg {
+        color: rgba(255, 255, 255, 0.3);
+        &:hover {
+          color: white;
+        }
+        font-size: 1rem;
+      }
+    }
+    .music-title {
+    }
+    .music-artist {
+      color: rgba(255, 255, 255, 0.8);
+      span {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+    .music-duration {
+      color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      justify-self: flex-end;
+    }
+  }
+}

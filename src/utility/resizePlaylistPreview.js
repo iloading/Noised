@@ -2,22 +2,21 @@
 export function resizePlaylistPreview(position) {
   let novaPosicaoX;
   let novaPosicaoY;
-
+  let novaPosicao = position;
   if (
     position &&
     position.x > window.parent.innerWidth - window.parent.innerWidth * 0.25
   ) {
     novaPosicaoX = window.parent.innerWidth - window.parent.innerWidth * 0.265;
-    return { ...position, x: novaPosicaoX };
-  } else if (
+    novaPosicao = { ...novaPosicao, x: novaPosicaoX };
+  }
+  if (
     position &&
     position.y > window.parent.innerHeight - window.parent.innerWidth * 0.3
   ) {
     novaPosicaoY = window.parent.innerHeight - window.parent.innerWidth * 0.31;
-    return { ...position, y: novaPosicaoY };
-  } else {
-    try {
-      return position;
-    } catch {}
+    novaPosicao = { ...novaPosicao, y: novaPosicaoY };
   }
+
+  return novaPosicao;
 }

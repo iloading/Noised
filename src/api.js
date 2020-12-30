@@ -10,4 +10,5 @@ export const topPodcastsURL = () => `${baseUrl}chart/0/podcasts`;
 export const playlistURL = (id) => `${baseUrl}playlist/${id}`;
 export const albumURL = (id) => `${baseUrl}album/${id}`;
 export const artistURL = (id) => `${baseUrl}artist/${id}`;
+export const artistTracksURL = (id) => `${baseUrl}artist/${id}/top?limit=5`;
 export const podcastURL = (id) => `${baseUrl}podcast/${id}`;

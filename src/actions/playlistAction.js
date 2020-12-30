@@ -1,5 +1,11 @@
 import axios from "axios";
-import { playlistURL, albumURL, artistURL, podcastURL } from "../api";
+import {
+  playlistURL,
+  albumURL,
+  artistURL,
+  artistTracksURL,
+  podcastURL,
+} from "../api";
 
 const loadPlaylist = (id, type, x = null, y = null) => async (dispatch) => {
   dispatch({ type: "LOADING_PLAYLIST" });
@@ -15,7 +21,11 @@ const loadPlaylist = (id, type, x = null, y = null) => async (dispatch) => {
 
       break;
     case "_artist":
-      apiData = await axios.get(artistURL(id));
+      let apiData1 = await axios.get(artistURL(id));
+      let apiData2 = await axios.get(artistTracksURL(id));
+      let tracks = [...apiData2.data.data];
+
+      apiData = { data: { ...apiData1.data, tracks: tracks } };
       break;
     case "_podcast":
       apiData = await axios.get(podcastURL(id));

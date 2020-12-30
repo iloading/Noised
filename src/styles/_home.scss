@@ -1,12 +1,24 @@
 .home {
   color: white;
-  /*background-color: #2c2c3c;*/
-  background-color: #44445c;
+  // background: transparent;
+  // background-color: #2c2c3c;
+  // background-color: #44445c;
   width: 100%;
   max-width: 1650px;
   margin: auto;
   height: 100vh;
   overflow-y: scroll;
+}
+.PageName {
+  background: rgb(44, 44, 60);
+  background: linear-gradient(
+    0deg,
+    rgba(44, 44, 60, 1) 0%,
+    rgba(68, 68, 92, 1) 100%
+  );
+
+  padding: 4rem 2rem 2rem 2rem;
+  font-size: 3rem;
 }
 .itemName {
   font-weight: 600;

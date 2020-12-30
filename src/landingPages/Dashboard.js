@@ -5,28 +5,35 @@ import Home from "../pages/Home";
 import { Route, Switch } from "react-router-dom";
 //COMPONENTS
 import Playlist from "../pages/Playlist";
+import Album from "../pages/Album";
+
 function Dashboard() {
   return (
     <>
       <main className="main">
         <Navbar />
-        <Switch>
-          <Route path="/playlist/:id">
-            <Playlist />
-          </Route>
-          <Route
-            exact
-            path={[
-              "/playlist_prev/:id",
-              "/album_prev/:id",
-              "/artist_prev/:id",
-              "/podcast_prev/:id",
-              "/",
-            ]}
-          >
-            <Home />
-          </Route>
-        </Switch>
+        <div className="main-conteudo">
+          <Switch>
+            <Route path={["/playlist/:id"]}>
+              <Playlist />
+            </Route>
+            <Route path={["/album/:id"]}>
+              <Album />
+            </Route>
+            <Route
+              exact
+              path={[
+                "/playlist_prev/:id",
+                "/album_prev/:id",
+                "/artist_prev/:id",
+                "/podcast_prev/:id",
+                "/",
+              ]}
+            >
+              <Home />
+            </Route>
+          </Switch>
+        </div>
       </main>
     </>
   );

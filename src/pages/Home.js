@@ -14,6 +14,7 @@ function Home() {
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
+    // dispatch(loadHome());
     dispatch(loadHome());
   }, [dispatch]);
 
@@ -27,6 +28,7 @@ function Home() {
 
   return (
     <div className="home">
+      <h1 className="PageName">HOME</h1>
       {topPlaylists && (
         <>
           <AnimateSharedLayout type="crossfade">

@@ -3,9 +3,20 @@ import { motion } from "framer-motion";
 //ICONS
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-
+//REDUX
+import { useDispatch } from "react-redux";
+//ROUTER
+import { useHistory } from "react-router-dom";
 function AlbumPreview({ novaPosition, exitHandler, previewData }) {
-  console.log(previewData);
+  //Mudar de página
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const openPage = () => {
+    //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
+    dispatch({ type: "LOADING_PLAYLIST" });
+    history.push(`/${previewData.type}/${previewData.id}`);
+  };
   return (
     <motion.div className="card-shadow" onClick={exitHandler}>
       <motion.div
@@ -18,9 +29,10 @@ function AlbumPreview({ novaPosition, exitHandler, previewData }) {
             layoutId={`image ${previewData.id}`}
             src={previewData.cover}
             alt={previewData.cover}
+            onClick={openPage}
           />
           <div>
-            <motion.h2 layoutId={`nome ${previewData.id}`}>
+            <motion.h2 layoutId={`nome ${previewData.id}`} onClick={openPage}>
               {previewData.title}
             </motion.h2>
             <span>{previewData.type} preview</span>
@@ -44,7 +56,7 @@ function AlbumPreview({ novaPosition, exitHandler, previewData }) {
                     <span className="play-btn">
                       <PlayCircleFilledWhiteIcon />
                     </span>
-                    {/* <span>
+                    {/* <span></span>
                           <FavoriteBorderIcon />
                         </span> */}
                     <span className="musica">

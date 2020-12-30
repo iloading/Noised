@@ -15,6 +15,7 @@ function Navbar() {
           <SearchIcon />
           <h1>Browse</h1>
         </div>
+
         <div className="forUser">
           <p>Your Library</p>
           <h1>Songs</h1>

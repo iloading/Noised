@@ -14,6 +14,6 @@ export function chooseURL(type, id) {
       return (prevURL = `/podcast_prev/${id}`);
 
     default:
-      break;
+      return prevURL;
   }
 }

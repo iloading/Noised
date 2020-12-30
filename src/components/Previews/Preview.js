@@ -13,12 +13,13 @@ import PodcastPreview from "./PodcastPreview";
 function Preview() {
   //Carregar info da playlist
   const { data: previewData, position, isLoading, type } = useSelector(
-    (state) => state.preview
+    (state) => state.mediaData
   );
 
   //Obter porsição correta para renderizar o componente
   let novaPosition = resizePlaylistPreview(position);
   //Sair da preview
+
   const history = useHistory();
   const exitHandler = (e) => {
     const elemento = e.target;
