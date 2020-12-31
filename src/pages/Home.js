@@ -27,7 +27,7 @@ function Home() {
   const pathID = location.pathname.split("/")[2];
 
   return (
-    <div className="home">
+    <div className="home main-conteudo">
       <h1 className="PageName">HOME</h1>
       {topPlaylists && (
         <>

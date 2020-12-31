@@ -1,13 +1,8 @@
 .home {
   color: white;
-  // background: transparent;
-  // background-color: #2c2c3c;
-  // background-color: #44445c;
-  width: 100%;
+  min-width: -webkit-fill-available;
   max-width: 1650px;
-  margin: auto;
-  height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .PageName {
   background: rgb(44, 44, 60);

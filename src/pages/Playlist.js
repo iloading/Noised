@@ -23,7 +23,7 @@ function Playlist() {
   return (
     <>
       {!isLoading && (
-        <div className="playlist_album">
+        <div className="playlist_album main-conteudo">
           <div className="mediaHead">
             <img src={media.picture_medium} alt={media.picture_medium} />
             <div>

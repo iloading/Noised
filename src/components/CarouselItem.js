@@ -1,8 +1,10 @@
 import React from "react";
 import PlayCircleFilledTwoToneIcon from "@material-ui/icons/PlayCircleFilledTwoTone";
 //REDUX
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import loadPlaylist from "../actions/playlistAction";
+import loadTracks from "../actions/tracksAction";
+
 //ROUTER
 import { Link, useHistory } from "react-router-dom";
 //FRAMER MOTION
@@ -13,7 +15,12 @@ import { chooseURL } from "../utility/URLchoice";
 function CarouselItem({ item, id, type }) {
   //Mudar de página
   const dispatch = useDispatch();
+  const { currentTrack, play_pause } = useSelector(
+    (state) => state.currentTrack
+  );
+
   const history = useHistory();
+
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
     dispatch({ type: "LOADING_PLAYLIST" });
@@ -31,6 +38,13 @@ function CarouselItem({ item, id, type }) {
       dispatch(loadPlaylist(id, type, screenX, screenY));
     }
   };
+
+  //CLIQUE NO BOTÃO PLAY
+  const playHandler = async () => {
+    await dispatch(loadTracks(id, type));
+    play_pause();
+  };
+
   //URL diferente consoante o tipo de media
   let prevURL = chooseURL(type, id);
 
@@ -55,7 +69,10 @@ function CarouselItem({ item, id, type }) {
               ></div>
             </Link>
             <div className={`middle ${item.name ? "artist-middle" : ""}`}>
-              <PlayCircleFilledTwoToneIcon fontSize="large" />
+              <PlayCircleFilledTwoToneIcon
+                fontSize="large"
+                onClick={playHandler}
+              />
             </div>
           </motion.section>
 

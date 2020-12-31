@@ -1,0 +1,31 @@
+.player {
+  background-color: #1e1e29;
+  grid-area: player;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 6px 25px 0px black;
+}
+.time-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 100%;
+  }
+}
+
+.play-control {
+  text-align: center;
+  svg {
+    font-size: xxx-large;
+  }
+}
+
+.player-content {
+  width: 55%;
+}

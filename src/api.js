@@ -11,4 +11,12 @@ export const playlistURL = (id) => `${baseUrl}playlist/${id}`;
 export const albumURL = (id) => `${baseUrl}album/${id}`;
 export const artistURL = (id) => `${baseUrl}artist/${id}`;
 export const artistTracksURL = (id) => `${baseUrl}artist/${id}/top?limit=5`;
+export const artistAlbumsURL = (id) => `${baseUrl}artist/${id}/albums`;
 export const podcastURL = (id) => `${baseUrl}podcast/${id}`;
+
+//TRACKS
+
+export const playlistTracksURL = (id) => `${baseUrl}playlist/${id}/tracks`;
+export const albumTracksURL = (id) => `${baseUrl}album/${id}/tracks`;
+
+// export const ArtistTracksURL = (id) => `${baseUrl}artist/${id}/tracks`;

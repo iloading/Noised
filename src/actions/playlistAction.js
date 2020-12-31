@@ -5,6 +5,7 @@ import {
   artistURL,
   artistTracksURL,
   podcastURL,
+  artistAlbumsURL,
 } from "../api";
 
 const loadPlaylist = (id, type, x = null, y = null) => async (dispatch) => {
@@ -23,9 +24,17 @@ const loadPlaylist = (id, type, x = null, y = null) => async (dispatch) => {
     case "_artist":
       let apiData1 = await axios.get(artistURL(id));
       let apiData2 = await axios.get(artistTracksURL(id));
+      let apiData3 = await axios.get(artistAlbumsURL(id));
       let tracks = [...apiData2.data.data];
+      let albums = apiData3.data.data;
 
-      apiData = { data: { ...apiData1.data, tracks: tracks } };
+      apiData = {
+        data: {
+          ...apiData1.data,
+          tracks: tracks,
+          albums: albums,
+        },
+      };
       break;
     case "_podcast":
       apiData = await axios.get(podcastURL(id));

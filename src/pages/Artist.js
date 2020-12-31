@@ -15,28 +15,28 @@ function Album() {
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadPlaylist(pathID, "_album"));
+    dispatch(loadPlaylist(pathID, "_artist"));
   }, [dispatch, pathID]);
 
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)
   const { data: media, isLoading } = useSelector((state) => state.mediaData);
+
   return (
     <>
       {!isLoading && (
         <div className="playlist_album main-conteudo">
-          <div className="mediaHead">
-            <img src={media.cover_medium} alt={media.cover_medium} />
+          <div className="artistHead">
+            <img src={media.picture_medium} alt={media.picture_medium} />
             <div>
-              <span>{media.type}</span>
-              <h2>{media.title}</h2>
+              <h2>{media.name}</h2>
 
               <p>
-                By <span>{media.artist.name}</span>
-              </p>
-              <p>
-                {media.nb_tracks} tracks, {media.duration} min<span></span>
+                {media.nb_album} albums<span></span>
               </p>
             </div>
+          </div>
+          <div className="artistPageTitles">
+            <h1>Top Songs</h1>
           </div>
 
           <div className=" tabelaMedia">
@@ -51,7 +51,7 @@ function Album() {
                 </tr>
               </thead>
               <tbody>
-                {media.tracks.data.map((chart) => (
+                {media.tracks.map((chart) => (
                   <tr key={chart.id} className="album-tr">
                     <td className="play-btn">
                       <PlayCircleFilledWhiteIcon />
@@ -66,6 +66,23 @@ function Album() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="artistPageTitles">
+            <h1>Albums</h1>
+          </div>
+
+          <div className="listaAlbums">
+            {media.albums.map((album) => (
+              <div key={album.id} className="album">
+                <img
+                  src={album.cover_medium}
+                  alt={album.cover_medium}
+                  className="item-foto"
+                />
+                <p className="music-title">{album.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
