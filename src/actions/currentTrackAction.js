@@ -6,11 +6,7 @@ export const Controlo = (func) => (dispatch) => {
     },
   });
 };
-const currentTrack = (track) => (dispatch) => {
-  //   dispatch({ type: "LOADING_TRACKS" });
-
-  // const apiData = await axios.get(playlistTracksURL(id));
-
+const setCurrentTrack = (track) => (dispatch) => {
   dispatch({
     type: "SET_CURRENT_TRACK",
     payload: {
@@ -18,4 +14,4 @@ const currentTrack = (track) => (dispatch) => {
     },
   });
 };
-export default currentTrack;
+export default setCurrentTrack;

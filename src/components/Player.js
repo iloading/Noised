@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 //ICONS
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
@@ -18,19 +18,23 @@ function Player() {
     (state) => state.currentTrack
   );
 
-  const playSongHandler = () => {
-    if (isPlaying) {
-      dispatch(pause());
-      audioRef.current.pause();
-    } else {
-      dispatch(play());
-      audioRef.current.play();
-    }
-  };
+  const playSongHandler = useCallback(
+    (e) => {
+      if (e === "pause") {
+        dispatch(pause());
+        audioRef.current.pause();
+      } else {
+        dispatch(play());
+        audioRef.current.play();
+      }
+    },
+    [dispatch]
+  );
 
+  //Quando o componente carrega envia a função "playSongHandler" para o state. Assim, a habilidade de dar play e pause fica disponível em qualquer página na aplicação
   useEffect(() => {
     dispatch(Controlo(playSongHandler));
-  }, [dispatch]);
+  }, [dispatch, playSongHandler]);
 
   // currentTrack && playSongHandler();
 
@@ -48,10 +52,13 @@ function Player() {
           {isPlaying ? (
             <PauseCircleOutlineIcon
               className="pause"
-              onClick={playSongHandler}
+              onClick={(e) => playSongHandler("pause")}
             />
           ) : (
-            <PlayCircleOutlineIcon className="play" onClick={playSongHandler} />
+            <PlayCircleOutlineIcon
+              className="play"
+              onClick={(e) => playSongHandler("play")}
+            />
           )}
 
           <SkipNextIcon className="skip-forward" />

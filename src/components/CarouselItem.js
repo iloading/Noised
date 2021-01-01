@@ -1,5 +1,6 @@
 import React from "react";
 import PlayCircleFilledTwoToneIcon from "@material-ui/icons/PlayCircleFilledTwoTone";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import loadPlaylist from "../actions/playlistAction";
@@ -15,7 +16,8 @@ import { chooseURL } from "../utility/URLchoice";
 function CarouselItem({ item, id, type }) {
   //Mudar de página
   const dispatch = useDispatch();
-  const { currentTrack, play_pause } = useSelector(
+  const { currentQueue, isLoading } = useSelector((state) => state.tracks);
+  const { currentTrack, isPlaying, play_pause } = useSelector(
     (state) => state.currentTrack
   );
 
@@ -40,9 +42,14 @@ function CarouselItem({ item, id, type }) {
   };
 
   //CLIQUE NO BOTÃO PLAY
-  const playHandler = async () => {
-    await dispatch(loadTracks(id, type));
-    play_pause();
+  const setTracksHandler = async (e) => {
+    let action = e;
+    if (currentQueue !== id) {
+      await dispatch(loadTracks(id, type));
+      play_pause(action);
+    } else {
+      play_pause(action);
+    }
   };
 
   //URL diferente consoante o tipo de media
@@ -69,10 +76,17 @@ function CarouselItem({ item, id, type }) {
               ></div>
             </Link>
             <div className={`middle ${item.name ? "artist-middle" : ""}`}>
-              <PlayCircleFilledTwoToneIcon
-                fontSize="large"
-                onClick={playHandler}
-              />
+              {currentQueue === id && isPlaying ? (
+                <PauseCircleOutlineIcon
+                  fontSize="large"
+                  onClick={(e) => setTracksHandler("pause")}
+                />
+              ) : (
+                <PlayCircleFilledTwoToneIcon
+                  fontSize="large"
+                  onClick={(e) => setTracksHandler("play")}
+                />
+              )}
             </div>
           </motion.section>
 

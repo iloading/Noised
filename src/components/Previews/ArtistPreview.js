@@ -17,6 +17,7 @@ function ArtistPreview({ novaPosition, exitHandler, previewData }) {
     dispatch({ type: "LOADING_PLAYLIST" });
     history.push(`/${previewData.type}/${previewData.id}`);
   };
+
   return (
     <motion.div className="card-shadow" onClick={exitHandler}>
       <motion.div

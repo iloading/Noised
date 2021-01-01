@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import Home from "../pages/Home";
 //ROUTER
@@ -10,7 +10,6 @@ import Artist from "../pages/Artist";
 import Player from "../components/Player";
 
 function Dashboard() {
-  const audioRef = useRef(null);
   return (
     <>
       <main className="main">
@@ -18,13 +17,13 @@ function Dashboard() {
 
         <Switch>
           <Route path={"/playlist/:id"}>
-            <Playlist audioRef={audioRef} />
+            <Playlist />
           </Route>
           <Route path={"/album/:id"}>
-            <Album audioRef={audioRef} />
+            <Album />
           </Route>
           <Route path={"/artist/:id"}>
-            <Artist audioRef={audioRef} />
+            <Artist />
           </Route>
           <Route
             exact
@@ -36,11 +35,11 @@ function Dashboard() {
               "/",
             ]}
           >
-            <Home audioRef={audioRef} />
+            <Home />
           </Route>
         </Switch>
 
-        <Player audioRef={audioRef} />
+        <Player />
       </main>
     </>
   );

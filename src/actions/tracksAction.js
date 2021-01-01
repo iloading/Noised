@@ -23,9 +23,13 @@ const loadTracks = (id, type) => async (dispatch) => {
   await dispatch({
     type: "FETCH_TRACKS",
     payload: {
+      currentQueue: id,
       tracks: apiData.data.data,
     },
   });
+  //Fix - se a música for a mesma em duas playlists diferentes, ao mudar a currentTrack dá reset
+  dispatch(currentTrack(null));
+  //Mudar a música atual
   dispatch(currentTrack(apiData.data.data[0]));
 };
 export default loadTracks;

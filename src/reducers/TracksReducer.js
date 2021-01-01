@@ -8,6 +8,7 @@ const tracksReducer = (state = initialState, action) => {
     case "FETCH_TRACKS":
       return {
         ...state,
+        currentQueue: action.payload.currentQueue,
         tracks: action.payload.tracks,
         isLoading: false,
       };
