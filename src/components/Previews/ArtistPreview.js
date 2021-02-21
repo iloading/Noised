@@ -31,9 +31,10 @@ function ArtistPreview({ novaPosition, exitHandler, previewData }) {
               layoutId={`image ${previewData.id}`}
               src={previewData.picture}
               alt={previewData.picture}
+              onClick={openPage}
             />
             <div className="marginArtist">
-              <motion.h2 layoutId={`nome ${previewData.id}`}>
+              <motion.h2 layoutId={`nome ${previewData.id}`} onClick={openPage}>
                 {previewData.name}
               </motion.h2>
 

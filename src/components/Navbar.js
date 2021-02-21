@@ -2,35 +2,48 @@ import React from "react";
 // import Navigation from "./Navigation";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import { useAuth } from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 function Navbar() {
+  const { currentUser, logOut } = useAuth();
+  const history = useHistory();
+  async function handleLogout() {
+    try {
+      await logOut();
+      history.push("../../landingPages/Login.js");
+    } catch {}
+  }
   return (
     <nav className="sideNav">
-      <div className="navContentWidth">
-        <div className="forAppIcons">
+      <section className="topInfo">
+        <div className="userInfo">
+          <AccountCircleIcon />
+          <h1>{currentUser.email}</h1>
+        </div>
+      </section>
+
+      <section className="center">
+        <div className="nameIcons">
           <HomeIcon />
           <h1>Home</h1>
         </div>
-        <div className="forAppIcons">
+
+        <div className="nameIcons">
           <SearchIcon />
           <h1>Browse</h1>
         </div>
+      </section>
 
-        <div className="forUser">
-          <p>Your Library</p>
-          <h1>Songs</h1>
-          <h1>Albums</h1>
-          <h1>Artists</h1>
-          <h1>Playlists</h1>
+      <section className="bottomInfo">
+        <div className="logout" onClick={handleLogout}>
+          <ExitToAppIcon />
+          <h1>Log Out</h1>
         </div>
-        <div className="forUserPlaylists">
-          <p>Your playlists</p>
-          <h1>Very nice Pop</h1>
-          <h1>Funk Boy</h1>
-          <h1>Rock Albino</h1>
-          <h1>Latino HITS</h1>
-        </div>
-      </div>
+      </section>
     </nav>
   );
 }

@@ -1,18 +1,17 @@
 const initialState = {
-  tracks: null,
+  data: null,
   isLoading: true,
 };
 
-const tracksReducer = (state = initialState, action) => {
+const albumTracksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_TRACKS":
+    case "FETCH_DATA":
       return {
         ...state,
-        currentQueue: action.payload.currentQueue,
-        tracks: action.payload.tracks,
+        data: action.payload.data,
         isLoading: false,
       };
-    case "LOADING_TRACKS":
+    case "LOADING":
       return {
         ...state,
         isLoading: true,
@@ -23,4 +22,4 @@ const tracksReducer = (state = initialState, action) => {
   }
 };
 
-export default tracksReducer;
+export default albumTracksReducer;

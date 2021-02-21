@@ -35,28 +35,28 @@ function Preview() {
     <>
       {!isLoading && (
         <>
-          {type === "_playlist" && (
+          {type === "playlist" && (
             <PlaylistPreview
               exitHandler={exitHandler}
               previewData={previewData}
               novaPosition={novaPosition}
             />
           )}
-          {type === "_album" && (
+          {type === "album" && (
             <AlbumPreview
               exitHandler={exitHandler}
               previewData={previewData}
               novaPosition={novaPosition}
             />
           )}
-          {type === "_artist" && (
+          {type === "artist" && (
             <ArtistPreview
               exitHandler={exitHandler}
               previewData={previewData}
               novaPosition={novaPosition}
             />
           )}
-          {type === "_podcast" && (
+          {type === "podcast" && (
             <PodcastPreview
               exitHandler={exitHandler}
               previewData={previewData}

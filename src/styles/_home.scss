@@ -162,6 +162,7 @@
   opacity: 0;
 
   .MuiSvgIcon-root {
+    z-index: -1;
     fill: lightgray;
     width: 2em;
     height: 2em;
@@ -179,6 +180,7 @@
     }
   }
 }
+
 .artist-middle {
   border-radius: 50%;
 }

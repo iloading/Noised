@@ -1,16 +1,16 @@
 export function chooseURL(type, id) {
   let prevURL;
   switch (type) {
-    case "_playlist":
+    case "playlist":
       return (prevURL = `/playlist_prev/${id}`);
 
-    case "_album":
+    case "album":
       return (prevURL = `/album_prev/${id}`);
 
-    case "_artist":
+    case "artist":
       return (prevURL = `/artist_prev/${id}`);
 
-    case "_podcast":
+    case "podcast":
       return (prevURL = `/podcast_prev/${id}`);
 
     default:

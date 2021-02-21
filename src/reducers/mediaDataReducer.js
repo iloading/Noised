@@ -5,7 +5,7 @@ const initialState = {
   type: null,
 };
 
-const playlistReducer = (state = initialState, action) => {
+const mediaDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_DATA":
       return {
@@ -15,7 +15,7 @@ const playlistReducer = (state = initialState, action) => {
         isLoading: false,
         type: action.payload.type,
       };
-    case "LOADING_PLAYLIST":
+    case "LOADING_PREVIEW":
       return {
         ...state,
         isLoading: true,
@@ -26,4 +26,4 @@ const playlistReducer = (state = initialState, action) => {
   }
 };
 
-export default playlistReducer;
+export default mediaDataReducer;

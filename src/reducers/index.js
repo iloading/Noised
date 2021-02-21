@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 import homeReducer from "./HomeReducer";
-import playlistReducer from "./PlaylistReducer";
-import tracksReducer from "./TracksReducer";
+import mediaDataReducer from "./mediaDataReducer";
+import queueReducer from "./queueReducer";
 import currentTrackReducer from "./CurrentTrackReducer";
 
 const rootReducers = combineReducers({
   home: homeReducer,
-  mediaData: playlistReducer,
-  tracks: tracksReducer,
+  mediaData: mediaDataReducer,
+  queue: queueReducer,
   currentTrack: currentTrackReducer,
 });
 

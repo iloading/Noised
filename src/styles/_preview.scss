@@ -70,20 +70,24 @@
     flex-direction: column;
   }
   tr {
-    cursor: pointer;
+    // cursor: pointer;
     display: flex;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     align-items: center;
     justify-content: space-between;
     &:hover {
       background-color: #2c2c3c;
+      .play-btn {
+        color: #47cafb;
+      }
     }
   }
   td {
     display: flex;
     align-items: center;
     .play-btn {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -93,7 +97,13 @@
     margin-right: 0.5rem;
   }
   .musica {
-    margin-left: 0.5rem;
+    margin-left: 0.7rem;
+  }
+  .musica-playing {
+    font-weight: bold;
+  }
+  .musica-playing-background {
+    background-color: #2c2c3c;
   }
   .musica-title {
   }
@@ -154,5 +164,11 @@
 
   .previewImgSong {
     width: 50%;
+  }
+}
+
+.heightArtist {
+  img {
+    cursor: pointer;
   }
 }

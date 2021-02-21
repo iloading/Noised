@@ -36,15 +36,11 @@ function Home() {
             <Carousel
               data={topPlaylists}
               titulo="Top Playlists"
-              type="_playlist"
+              type="playlist"
             />
-            <Carousel data={topAlbums} titulo="Top Albums" type="_album" />
-            <Carousel data={topArtists} titulo="Top Artists" type="_artist" />
-            <Carousel
-              data={topPodcasts}
-              titulo="Top Podcasts"
-              type="_podcast"
-            />
+            <Carousel data={topAlbums} titulo="Top Albums" type="album" />
+            <Carousel data={topArtists} titulo="Top Artists" type="artist" />
+            <Carousel data={topPodcasts} titulo="Top Podcasts" type="podcast" />
           </AnimateSharedLayout>
         </>
       )}

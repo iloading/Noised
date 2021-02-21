@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import loadPlaylist from "../actions/playlistAction";
+import { loadAlbum } from "../actions/mediaDataAction";
 // ICONS
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -11,11 +11,13 @@ function Album() {
   //ROUTER
   const location = useLocation();
   const pathID = location.pathname.split("/")[2];
+  console.log(location);
+  console.log(pathID);
 
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadPlaylist(pathID, "_album"));
+    dispatch(loadAlbum(pathID));
   }, [dispatch, pathID]);
 
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)

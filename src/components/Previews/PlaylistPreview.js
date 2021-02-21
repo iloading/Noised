@@ -7,7 +7,8 @@ import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { useDispatch } from "react-redux";
 //ROUTER
 import { useHistory } from "react-router-dom";
-
+//COMPONENTES
+import MusicaNaTabela from "./MusicaNaTabela";
 function PlaylistPreview({ novaPosition, exitHandler, previewData }) {
   //Mudar de página
   const dispatch = useDispatch();
@@ -52,21 +53,11 @@ function PlaylistPreview({ novaPosition, exitHandler, previewData }) {
           <table cellSpacing="0" cellPadding="0">
             <tbody>
               {previewData.tracks.data.map((chart) => (
-                <tr key={chart.id}>
-                  <td>
-                    <span className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </span>
-                    {/* <span>
-                          <FavoriteBorderIcon />
-                        </span> */}
-                    <span className="musica">
-                      <p className="musica-title">{chart.title}</p>
-                      <p className="musica-artist">{chart.artist.name}</p>
-                    </span>
-                  </td>
-                  <td className="duration">{chart.duration}</td>
-                </tr>
+                <MusicaNaTabela
+                  chart={chart}
+                  previewData={previewData}
+                  key={chart.id}
+                />
               ))}
             </tbody>
           </table>

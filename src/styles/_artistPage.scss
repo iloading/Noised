@@ -44,12 +44,10 @@
 }
 
 .listaAlbums {
-  display: flex;
-  width: 95%;
-  overflow-x: hidden;
-  overflow-y: hidden;
   margin: auto;
   flex-wrap: wrap;
+  display: flex;
+  width: 95%;
 
   img {
     border-radius: 10%;
@@ -60,6 +58,8 @@
     width: 20%;
     margin-right: 2%;
     margin-left: 2%;
+    margin-bottom: 4%;
+    cursor: pointer;
 
     p {
       word-break: break-all;

@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import Playlist from "../pages/Playlist";
 import Album from "../pages/Album";
 import Artist from "../pages/Artist";
+import Browse from "../pages/Browse";
 import Player from "../components/Player";
 
 function Dashboard() {
@@ -36,6 +37,9 @@ function Dashboard() {
             ]}
           >
             <Home />
+          </Route>
+          <Route path={"/Browse"}>
+            <Browse />
           </Route>
         </Switch>
 

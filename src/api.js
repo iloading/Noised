@@ -15,7 +15,7 @@ export const artistAlbumsURL = (id) => `${baseUrl}artist/${id}/albums`;
 export const podcastURL = (id) => `${baseUrl}podcast/${id}`;
 
 //TRACKS
-
+//ATENÇÃO ESTES DOIS PEDIDOS SÓ DÃO AS PRIMEIRAS 25 MÚSICAS DA LISTA, PARA OBTER TODAS DEVEMOS USAR OS LINKS QUE ESTÃO EM CIMA
 export const playlistTracksURL = (id) => `${baseUrl}playlist/${id}/tracks`;
 export const albumTracksURL = (id) => `${baseUrl}album/${id}/tracks`;
 

@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 //ICONS
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 //REDUX
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import loadQueue from "../../actions/queueAction";
+import setCurrentTrack from "../../actions/currentTrackAction";
 //ROUTER
 import { useHistory } from "react-router-dom";
+//COMPONENTES
+import MusicaNaTabela from "./MusicaNaTabela";
+
 function AlbumPreview({ novaPosition, exitHandler, previewData }) {
+  // console.log(previewData);
   //Mudar de página
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const btn_pause = useRef();
+  const { tracks, currentQueue, isLoading } = useSelector(
+    (state) => state.queue
+  );
+  const { currentTrack, isPlaying, play_pause } = useSelector(
+    (state) => state.currentTrack
+  );
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
-    dispatch({ type: "LOADING_PLAYLIST" });
+    dispatch({ type: "LOADING_PREVIEW" });
     history.push(`/${previewData.type}/${previewData.id}`);
   };
+
   return (
     <motion.div className="card-shadow" onClick={exitHandler}>
       <motion.div
@@ -51,21 +66,11 @@ function AlbumPreview({ novaPosition, exitHandler, previewData }) {
           <table cellSpacing="0" cellPadding="0">
             <tbody>
               {previewData.tracks.data.map((chart) => (
-                <tr key={chart.id}>
-                  <td>
-                    <span className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </span>
-                    {/* <span></span>
-                          <FavoriteBorderIcon />
-                        </span> */}
-                    <span className="musica">
-                      <p className="musica-title">{chart.title}</p>
-                      <p className="musica-artist">{chart.artist.name}</p>
-                    </span>
-                  </td>
-                  <td className="duration">{chart.duration}</td>
-                </tr>
+                <MusicaNaTabela
+                  chart={chart}
+                  previewData={previewData}
+                  key={chart.id}
+                />
               ))}
             </tbody>
           </table>

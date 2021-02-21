@@ -2,12 +2,22 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
-import loadPlaylist from "../actions/playlistAction";
+import { loadArtistPage } from "../actions/mediaDataAction";
 // ICONS
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+//ROUTER
+import { useHistory } from "react-router-dom";
 
-function Album() {
+function Artist() {
+  const history = useHistory();
+
+  const openPage = (id) => {
+    //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
+    dispatch({ type: "LOADING_PREVIEW" });
+    history.push(`/album/${id}`);
+  };
+
   //ROUTER
   const location = useLocation();
   const pathID = location.pathname.split("/")[2];
@@ -15,7 +25,7 @@ function Album() {
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadPlaylist(pathID, "_artist"));
+    dispatch(loadArtistPage(pathID));
   }, [dispatch, pathID]);
 
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)
@@ -74,7 +84,11 @@ function Album() {
 
           <div className="listaAlbums">
             {media.albums.map((album) => (
-              <div key={album.id} className="album">
+              <div
+                key={album.id}
+                className="album"
+                onClick={() => openPage(album.id)}
+              >
                 <img
                   src={album.cover_medium}
                   alt={album.cover_medium}
@@ -90,4 +104,4 @@ function Album() {
   );
 }
 
-export default Album;
+export default Artist;
