@@ -31,7 +31,7 @@ function Playlist() {
               <h2>{media.title}</h2>
 
               <p>
-                By <span>{media.creator.name}</span>
+                By <span>{media.creator && media.creator.name}</span>
               </p>
               <p>
                 {media.nb_tracks} tracks, {media.duration} min<span></span>

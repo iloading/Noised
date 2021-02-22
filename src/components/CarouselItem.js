@@ -34,7 +34,7 @@ function CarouselItem({ item, id, type }) {
 
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
-    dispatch({ type: "LOADING_PLAYLIST" });
+    dispatch({ type: "LOADING_PREVIEW" });
     const tipoPagina = type;
     history.push(`/${tipoPagina}/${id}`);
   };

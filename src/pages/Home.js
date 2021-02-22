@@ -40,7 +40,7 @@ function Home() {
             />
             <Carousel data={topAlbums} titulo="Top Albums" type="album" />
             <Carousel data={topArtists} titulo="Top Artists" type="artist" />
-            <Carousel data={topPodcasts} titulo="Top Podcasts" type="podcast" />
+            {/* <Carousel data={topPodcasts} titulo="Top Podcasts" type="podcast" /> */}
           </AnimateSharedLayout>
         </>
       )}

@@ -11,8 +11,6 @@ function Album() {
   //ROUTER
   const location = useLocation();
   const pathID = location.pathname.split("/")[2];
-  console.log(location);
-  console.log(pathID);
 
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();

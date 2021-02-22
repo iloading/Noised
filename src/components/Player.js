@@ -6,6 +6,9 @@ import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
+import Slider from "@material-ui/core/Slider";
+import VolumeDown from "@material-ui/icons/VolumeDown";
+import VolumeUp from "@material-ui/icons/VolumeUp";
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { Controlo } from "../actions/currentTrackAction";
@@ -15,6 +18,7 @@ import getTime from "../utility/getTime";
 import { playAudio } from "../utility/autoPlay";
 //REDUX
 import setCurrentTrack from "../actions/currentTrackAction";
+import { setVolume } from "../actions/volumeAction";
 
 function Player() {
   const dispatch = useDispatch();
@@ -29,6 +33,7 @@ function Player() {
     (state) => state.currentTrack
   );
   const { tracks, queueType } = useSelector((state) => state.queue);
+  const { volume } = useSelector((state) => state.volume);
 
   //Play / Pause Logic
   const playSongHandler = useCallback(
@@ -66,6 +71,10 @@ function Player() {
   const dragHandler = (e) => {
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
+  };
+  const volumeDragHandler = (e) => {
+    audioRef.current.volume = e.target.value / 100;
+    dispatch(setVolume(e.target.value / 100));
   };
 
   const skipTrackHandler = (direction) => {
@@ -188,7 +197,18 @@ function Player() {
         </div>
 
         <div className="player-extra-controls">
-          <VolumeUpIcon />
+          <span className="volume">
+            <VolumeDown />
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={volume * 100 || 0}
+              onChange={volumeDragHandler}
+            />
+            <VolumeUp />
+          </span>
+
           <ShuffleIcon />
         </div>
 

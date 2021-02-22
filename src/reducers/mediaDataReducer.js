@@ -15,10 +15,21 @@ const mediaDataReducer = (state = initialState, action) => {
         isLoading: false,
         type: action.payload.type,
       };
+    case "CLEAR_DATA":
+      return {
+        ...state,
+        data: null,
+        position: null,
+        isLoading: true,
+        type: null,
+      };
     case "LOADING_PREVIEW":
       return {
         ...state,
         isLoading: true,
+        data: null,
+        position: null,
+        type: null,
       };
 
     default:

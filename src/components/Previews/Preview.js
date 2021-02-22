@@ -56,13 +56,13 @@ function Preview() {
               novaPosition={novaPosition}
             />
           )}
-          {type === "podcast" && (
+          {/* {type === "podcast" && (
             <PodcastPreview
               exitHandler={exitHandler}
               previewData={previewData}
               novaPosition={novaPosition}
             />
-          )}
+          )} */}
         </>
       )}
     </>
