@@ -6,3 +6,8 @@ export const setVolume = (volume) => (dispatch) => {
     },
   });
 };
+export const toogleRepeat = () => (dispatch) => {
+  dispatch({
+    type: "TOOGLE_REPEAT",
+  });
+};

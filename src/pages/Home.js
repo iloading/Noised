@@ -9,8 +9,15 @@ import { loadHome } from "../actions/homeAction";
 import { useLocation } from "react-router-dom";
 //FRAMER MOTION
 import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
+//icons
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+
+import { useAuth } from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 function Home() {
+  const { currentUser } = useAuth();
+
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,7 +35,13 @@ function Home() {
 
   return (
     <div className="home main-conteudo">
+      <div className="loginUser">
+        <AccountCircleIcon />
+        <p className="loginEmail">{currentUser.email}</p>
+      </div>
+
       <h1 className="PageName">HOME</h1>
+
       {topPlaylists && (
         <>
           <AnimateSharedLayout type="crossfade">

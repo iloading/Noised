@@ -3,6 +3,18 @@
   min-width: -webkit-fill-available;
   max-width: 1650px;
   overflow-y: auto;
+
+  .loginUser {
+    background-color: #44445c;
+    justify-content: flex-end;
+    display: flex;
+    padding-top: 1%;
+    padding-right: 2%;
+
+    .loginEmail {
+      padding-left: 1%;
+    }
+  }
 }
 .PageName {
   background: rgb(44, 44, 60);
@@ -42,6 +54,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   margin: auto;
+  padding-bottom: 2rem;
   .carrossel-item {
     margin-right: 1.5rem;
     section {

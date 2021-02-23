@@ -10,8 +10,8 @@ export function chooseURL(type, id) {
     case "artist":
       return (prevURL = `/artist_prev/${id}`);
 
-    case "podcast":
-      return (prevURL = `/podcast_prev/${id}`);
+    // case "podcast":
+    //   return (prevURL = `/podcast_prev/${id}`);
 
     default:
       return prevURL;

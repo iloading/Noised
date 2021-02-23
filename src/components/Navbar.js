@@ -4,6 +4,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Logo from "../img/logo.png";
 
 import { useAuth } from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -20,10 +21,11 @@ function Navbar() {
   return (
     <nav className="sideNav">
       <section className="topInfo">
-        <div className="userInfo">
+        <img src={Logo} />
+        {/* <div className="userInfo">
           <AccountCircleIcon />
           <h1>{currentUser.email}</h1>
-        </div>
+        </div> */}
       </section>
 
       <section className="center">

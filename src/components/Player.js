@@ -4,11 +4,13 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
-import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+
 import ShuffleIcon from "@material-ui/icons/Shuffle";
-import Slider from "@material-ui/core/Slider";
+
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeUp from "@material-ui/icons/VolumeUp";
+import RepeatIcon from "@material-ui/icons/Repeat";
+import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { Controlo } from "../actions/currentTrackAction";
@@ -18,7 +20,7 @@ import getTime from "../utility/getTime";
 import { playAudio } from "../utility/autoPlay";
 //REDUX
 import setCurrentTrack from "../actions/currentTrackAction";
-import { setVolume } from "../actions/volumeAction";
+import { setVolume, toogleRepeat } from "../actions/settingsAction";
 
 function Player() {
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ function Player() {
     (state) => state.currentTrack
   );
   const { tracks, queueType } = useSelector((state) => state.queue);
-  const { volume } = useSelector((state) => state.volume);
+  const { volume, repeat } = useSelector((state) => state.settings);
 
   //Play / Pause Logic
   const playSongHandler = useCallback(
@@ -79,7 +81,7 @@ function Player() {
 
   const skipTrackHandler = (direction) => {
     let currentIndex = tracks.findIndex((song) => song.id === currentTrack.id);
-    //Ficou com código repetido por causa das fotos que não vêm formatadas com o mesmo nome da API e tivemos que acrescentar lógica para fazer essa distinção
+    //Ficou com código repetido por causa das fotos que não vêm formatadas com o mesmo nome da API e tivemos que acrescentar/repetir lógica para fazer essa distinção
     if (queueType === "album") {
       if (direction === "skip-back") {
         if ((currentIndex - 1) % tracks.length === -1) {
@@ -137,6 +139,10 @@ function Player() {
     }
     playAudio(isPlaying, audioRef);
   };
+
+  const suffleHandler = () => {
+    dispatch(toogleRepeat());
+  };
   return (
     <>
       <div className="player">
@@ -160,26 +166,33 @@ function Player() {
 
         <div className="player-content">
           <div className="play-control">
-            <SkipPreviousIcon
-              className="skip-back"
-              onClick={() => skipTrackHandler("skip-back")}
+            <ShuffleIcon
+              className={`shuffle ${repeat ? "shuffle-ativado" : ""}`}
+              onClick={suffleHandler}
             />
-            {isPlaying ? (
-              <PauseCircleOutlineIcon
-                className="pause"
-                onClick={(e) => playSongHandler("pause")}
+            <span>
+              <SkipPreviousIcon
+                className="skip-back"
+                onClick={() => skipTrackHandler("skip-back")}
               />
-            ) : (
-              <PlayCircleOutlineIcon
-                className="play"
-                onClick={(e) => playSongHandler("play")}
-              />
-            )}
+              {isPlaying ? (
+                <PauseCircleOutlineIcon
+                  className="pause"
+                  onClick={(e) => playSongHandler("pause")}
+                />
+              ) : (
+                <PlayCircleOutlineIcon
+                  className="play"
+                  onClick={(e) => playSongHandler("play")}
+                />
+              )}
 
-            <SkipNextIcon
-              className="skip-forward"
-              onClick={() => skipTrackHandler("skip-forward")}
-            />
+              <SkipNextIcon
+                className="skip-forward"
+                onClick={() => skipTrackHandler("skip-forward")}
+              />
+            </span>
+            <RepeatIcon className="repeat" />
           </div>
           <div className="time-control">
             <p>
@@ -208,8 +221,6 @@ function Player() {
             />
             <VolumeUp />
           </span>
-
-          <ShuffleIcon />
         </div>
 
         {/* <div className="player-content">

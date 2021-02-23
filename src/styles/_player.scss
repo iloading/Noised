@@ -5,7 +5,7 @@
   flex-direction: row;
   color: white;
   padding: 1rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   box-shadow: 0px 6px 25px 0px black;
 }
@@ -24,10 +24,60 @@
 }
 
 .play-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  span {
+    width: 25%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .play {
+    font-size: xxx-large;
+    &:active {
+      color: #478ffb;
+    }
+  }
+  .pause {
+    font-size: xxx-large;
+    &:active {
+      color: #478ffb;
+    }
+  }
+  .skip-forward {
+    font-size: xx-large;
+    &:active {
+      color: #478ffb;
+    }
+  }
+  .skip-back {
+    font-size: xx-large;
+    &:active {
+      color: #478ffb;
+    }
+  }
+  .shuffle {
+    font-size: larger;
+    &:active {
+      color: #478ffb;
+    }
+  }
+
+  .shuffle-ativado {
+    color: #47cafb;
+  }
+  .repeat {
+    font-size: larger;
+    &:active {
+      color: #478ffb;
+    }
+  }
+
   svg {
     cursor: pointer;
-    font-size: xxx-large;
+    // font-size: xxx-large;
     &:hover {
       color: #47cafb;
     }

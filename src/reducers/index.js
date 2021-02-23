@@ -3,14 +3,14 @@ import homeReducer from "./HomeReducer";
 import mediaDataReducer from "./mediaDataReducer";
 import queueReducer from "./queueReducer";
 import currentTrackReducer from "./CurrentTrackReducer";
-import volumeReducer from "./volumeReducer";
+import settingsReducer from "./settingsReducer";
 
 const rootReducers = combineReducers({
   home: homeReducer,
   mediaData: mediaDataReducer,
   queue: queueReducer,
   currentTrack: currentTrackReducer,
-  volume: volumeReducer,
+  settings: settingsReducer,
 });
 
 export default rootReducers;

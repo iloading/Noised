@@ -18,8 +18,14 @@ nav {
 
 //top
 .topInfo {
-  border-bottom: 2px solid #2b2b49;
+  // border-bottom: 2px solid #2b2b49;
   // box-shadow: -5px -41px 30px 25px black;
+  background-color: #313152;
+  text-align: center;
+
+  img {
+    width: 45%;
+  }
 }
 
 .userInfo {
@@ -70,6 +76,7 @@ nav {
   background-color: #2b2b49;
 }
 .bottomInfo {
-  border-top: 2px solid #2b2b49;
+  // border-top: 2px solid #2b2b49;
   // box-shadow: -41px 42px 30px 25px black;
+  background-color: #313152;
 }
