@@ -97,15 +97,20 @@
         background-color: #44445c;
       }
     }
+    .musica-playing-background {
+      background-color: #44445c;
+    }
     td {
       display: flex;
       align-items: center;
     }
     .play-btn {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .favorite-btn {
       svg {
         color: rgba(255, 255, 255, 0.3);

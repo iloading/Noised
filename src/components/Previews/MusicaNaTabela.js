@@ -8,15 +8,15 @@ import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import { useSelector, useDispatch } from "react-redux";
 import loadQueue from "../../actions/queueAction";
 import setCurrentTrack from "../../actions/currentTrackAction";
+//UTIL
+import getTime from "../../utility/getTime";
 
 function MusicaNaTabela({ chart, previewData }) {
   const dispatch = useDispatch();
 
   const btn_pause = useRef();
   const button_play = useRef();
-  const { tracks, currentQueue, isLoading } = useSelector(
-    (state) => state.queue
-  );
+  const { tracks, currentQueue } = useSelector((state) => state.queue);
   const { currentTrack, isPlaying, play_pause } = useSelector(
     (state) => state.currentTrack
   );
@@ -29,11 +29,15 @@ function MusicaNaTabela({ chart, previewData }) {
 
         button_play.current.click();
       } else {
-        console.log(button_play.current);
         //e agora selecionamos a currentTrack para começar a tocar
         let playSong = tracks.find((elm) => elm.id === chart.id);
+
         dispatch(
-          setCurrentTrack(playSong, previewData.cover_small, previewData.type)
+          setCurrentTrack(
+            playSong,
+            previewData.cover_small || playSong.album.cover_small,
+            previewData.type
+          )
         );
         play_pause(action);
       }
@@ -82,7 +86,7 @@ function MusicaNaTabela({ chart, previewData }) {
           <p className="musica-artist">{chart.artist.name}</p>
         </span>
       </td>
-      <td className="duration">{chart.duration}</td>
+      <td className="duration">{getTime(chart.duration)}</td>
     </tr>
   );
 }

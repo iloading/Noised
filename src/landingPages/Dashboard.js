@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Home from "../pages/Home";
 //ROUTER
@@ -11,10 +11,12 @@ import Browse from "../pages/Browse";
 import Player from "../components/Player";
 
 function Dashboard() {
+  const [searchInp, setSearchInp] = useState("");
+
   return (
     <>
       <main className="main">
-        <Navbar />
+        <Navbar searchInp={searchInp} setSearchInp={setSearchInp} />
 
         <Switch>
           <Route path={"/playlist/:id"}>
@@ -27,19 +29,27 @@ function Dashboard() {
             <Artist />
           </Route>
           <Route
+            path={[
+              "/search/playlist_prev/:id",
+              "/search/album_prev/:id",
+              "/search/artist_prev/:id",
+              "/search/podcast_prev/:id",
+              "/search/:id",
+            ]}
+          >
+            <Browse />
+          </Route>
+          <Route
             exact
             path={[
-              "/playlist_prev/:id",
-              "/album_prev/:id",
-              "/artist_prev/:id",
-              "/podcast_prev/:id",
+              "/home/playlist_prev/:id",
+              "/home/album_prev/:id",
+              "/home/artist_prev/:id",
+              "/home/podcast_prev/:id",
               "/",
             ]}
           >
-            <Home />
-          </Route>
-          <Route path={"/Browse"}>
-            <Browse />
+            <Home setSearchInp={setSearchInp} />
           </Route>
         </Switch>
 
@@ -50,3 +60,11 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+// [
+//   "/playlist_prev/:id",
+//   "/album_prev/:id",
+//   "/artist_prev/:id",
+//   "/podcast_prev/:id",
+//   "/",
+// ];

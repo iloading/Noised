@@ -1,12 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-//ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-// import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+
 //REDUX
 import { useDispatch } from "react-redux";
 //ROUTER
 import { useHistory } from "react-router-dom";
+//COMPONENTES
+import MusicaNaTabela from "./MusicaNaTabela";
 function ArtistPreview({ novaPosition, exitHandler, previewData }) {
   //Mudar de página
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function ArtistPreview({ novaPosition, exitHandler, previewData }) {
 
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
-    dispatch({ type: "LOADING_PLAYLIST" });
+    dispatch({ type: "LOADING_PREVIEW" });
     history.push(`/${previewData.type}/${previewData.id}`);
   };
 
@@ -45,31 +45,20 @@ function ArtistPreview({ novaPosition, exitHandler, previewData }) {
           </div>
         </motion.div>
 
-        <div className="tabelaPreview">
-          <table className="artistMusicList" cellSpacing="0" cellPadding="0">
+        <div className="tabelaPreview tabelaPreviewFix">
+          <table cellSpacing="0" cellPadding="0">
+            <thead className="topSongs">
+              <td>
+                <h2>Top 5 Artist's Songs</h2>
+              </td>
+            </thead>
             <tbody>
               {previewData.tracks.map((track) => (
-                <tr key={track.id}>
-                  <td>
-                    {" "}
-                    <img
-                      className="previewImgSong"
-                      src={track.album.cover}
-                      alt={track.album.cover}
-                    />
-                  </td>
-                  <td>
-                    <span className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </span>
-                    {/* <span></span>
-                          <FavoriteBorderIcon />
-                        </span> */}
-                    <span className="musica">
-                      <p className="musica-title">{track.title}</p>
-                    </span>
-                  </td>
-                </tr>
+                <MusicaNaTabela
+                  chart={track}
+                  key={track.id}
+                  previewData={previewData}
+                />
               ))}
             </tbody>
           </table>

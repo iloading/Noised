@@ -6,8 +6,14 @@ export const setVolume = (volume) => (dispatch) => {
     },
   });
 };
-export const toogleRepeat = () => (dispatch) => {
+export const toogleShuffle = () => (dispatch) => {
+  dispatch({
+    type: "TOOGLE_SHUFFLE",
+  });
+};
+export const toogleRepeat = (n) => (dispatch) => {
   dispatch({
     type: "TOOGLE_REPEAT",
+    payload: { n: n },
   });
 };

@@ -7,26 +7,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadHome } from "../actions/homeAction";
 //ROUTER
 import { useLocation } from "react-router-dom";
+
 //FRAMER MOTION
 import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
-//icons
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import { useAuth } from "../context/AuthContext";
-import { useHistory } from "react-router-dom";
-
-function Home() {
-  const { currentUser } = useAuth();
-
+function Home({ setSearchInp }) {
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
+
   useEffect(() => {
+    setSearchInp("");
     // dispatch(loadHome());
     dispatch(loadHome());
-  }, [dispatch]);
+  }, [dispatch, setSearchInp]);
 
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)
-  const { topPlaylists, topAlbums, topArtists, topPodcasts } = useSelector(
+  const { topPlaylists, topAlbums, topArtists } = useSelector(
     (state) => state.home
   );
   //ROUTER
@@ -35,11 +31,6 @@ function Home() {
 
   return (
     <div className="home main-conteudo">
-      <div className="loginUser">
-        <AccountCircleIcon />
-        <p className="loginEmail">{currentUser.email}</p>
-      </div>
-
       <h1 className="PageName">HOME</h1>
 
       {topPlaylists && (

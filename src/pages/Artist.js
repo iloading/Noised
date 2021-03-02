@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { loadArtistPage } from "../actions/mediaDataAction";
-// ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+
 //ROUTER
 import { useHistory } from "react-router-dom";
+//COMPONENTES
+import ArtistTrack from "./ArtistTrack";
 
 function Artist() {
   const history = useHistory();
@@ -24,6 +24,7 @@ function Artist() {
 
   //Pedido à API w/ REDUX assim que a HOME carrega
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadArtistPage(pathID));
   }, [dispatch, pathID]);
@@ -33,7 +34,8 @@ function Artist() {
 
   return (
     <>
-      {!isLoading && (
+      {!isLoading && media && media.id == pathID && (
+        // verificações para previnir que a página carregue antes do pedido à API
         <div className="playlist_album main-conteudo">
           <div className="artistHead">
             <img src={media.picture_medium} alt={media.picture_medium} />
@@ -62,17 +64,11 @@ function Artist() {
               </thead>
               <tbody>
                 {media.tracks.map((chart) => (
-                  <tr key={chart.id} className="album-tr">
-                    <td className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </td>
-                    <td className="favorite-btn">
-                      <FavoriteBorderIcon />
-                    </td>
-                    <td className="music-title">{chart.title}</td>
-
-                    <td className="music-duration">{chart.duration}</td>
-                  </tr>
+                  <ArtistTrack
+                    chart={chart}
+                    previewData={media}
+                    key={chart.id}
+                  />
                 ))}
               </tbody>
             </table>

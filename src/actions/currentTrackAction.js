@@ -28,6 +28,16 @@ const setCurrentTrack = (track, albumPic, type) => (dispatch) => {
         },
       });
     } catch {}
+  } else if (type === "artist") {
+    try {
+      dispatch({
+        type: "SET_CURRENT_TRACK",
+        payload: {
+          currentTrack: track,
+          album: albumPic,
+        },
+      });
+    } catch {}
   }
 };
 export default setCurrentTrack;

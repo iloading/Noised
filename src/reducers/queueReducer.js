@@ -20,6 +20,11 @@ const queueReducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
       };
+    case "SHUFFLE_TRACKS":
+      return {
+        ...state,
+        tracks: action.payload.tracks,
+      };
 
     default:
       return { ...state };

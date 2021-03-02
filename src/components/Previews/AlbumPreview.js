@@ -1,13 +1,9 @@
-import React, { useRef } from "react";
 import { motion } from "framer-motion";
 //ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+
 //REDUX
-import { useSelector, useDispatch } from "react-redux";
-import loadQueue from "../../actions/queueAction";
-import setCurrentTrack from "../../actions/currentTrackAction";
+import { useDispatch } from "react-redux";
+
 //ROUTER
 import { useHistory } from "react-router-dom";
 //COMPONENTES
@@ -19,13 +15,6 @@ function AlbumPreview({ novaPosition, exitHandler, previewData }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const btn_pause = useRef();
-  const { tracks, currentQueue, isLoading } = useSelector(
-    (state) => state.queue
-  );
-  const { currentTrack, isPlaying, play_pause } = useSelector(
-    (state) => state.currentTrack
-  );
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
     dispatch({ type: "LOADING_PREVIEW" });
@@ -55,10 +44,6 @@ function AlbumPreview({ novaPosition, exitHandler, previewData }) {
             <p>
               {previewData.nb_tracks} tracks <span></span>
             </p>
-          </div>
-          <div>
-            <OpenInNewIcon />
-            <p>Open Playlist</p>
           </div>
         </motion.div>
 

@@ -4,17 +4,21 @@ import { useSelector } from "react-redux";
 //UTIL
 import { resizePlaylistPreview } from "../../utility/resizePlaylistPreview";
 //ROUTER
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 //COMPONENTS
 import PlaylistPreview from "./PlaylistPreview";
 import AlbumPreview from "./AlbumPreview";
 import ArtistPreview from "./ArtistPreview";
-import PodcastPreview from "./PodcastPreview";
+
 function Preview() {
   //Carregar info da playlist
+
   const { data: previewData, position, isLoading, type } = useSelector(
     (state) => state.mediaData
   );
+
+  const location = useLocation();
+  let paginaAtual = location.pathname.split("/")[1];
 
   //Obter porsição correta para renderizar o componente
   let novaPosition = resizePlaylistPreview(position);
@@ -25,9 +29,13 @@ function Preview() {
     const elemento = e.target;
     if (elemento.classList.contains("card-shadow")) {
       //fechar o pop-up
+
       document.body.style.overflow = "auto";
+
       //voltar para a home
-      history.push("/");
+      if (paginaAtual === "home") {
+        history.push("/");
+      }
     }
   };
 

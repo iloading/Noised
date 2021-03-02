@@ -1,6 +1,7 @@
 const initialState = {
   volume: 0.5,
-  repeat: false,
+  shuffle: false,
+  repeat: 0,
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -10,10 +11,15 @@ const settingsReducer = (state = initialState, action) => {
         ...state,
         volume: action.payload.volume,
       };
+    case "TOOGLE_SHUFFLE":
+      return {
+        ...state,
+        shuffle: !state.shuffle,
+      };
     case "TOOGLE_REPEAT":
       return {
         ...state,
-        repeat: !state.repeat,
+        repeat: action.payload.n,
       };
 
     default:

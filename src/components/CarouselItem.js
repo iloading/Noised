@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import PlayCircleFilledTwoToneIcon from "@material-ui/icons/PlayCircleFilledTwoTone";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 //REDUX
@@ -12,28 +12,38 @@ import loadQueue from "../actions/queueAction";
 import setCurrentTrack from "../actions/currentTrackAction";
 
 //ROUTER
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+
 //FRAMER MOTION
 import { motion, AnimatePresence } from "framer-motion";
 //UTIL
 import { chooseURL } from "../utility/URLchoice";
+import { shuffleArray } from "../utility/shuffleTracks";
 
 function CarouselItem({ item, id, type }) {
   //Mudar de página
   const dispatch = useDispatch();
   const btn_play = useRef();
   const btn_pause = useRef();
-  const { tracks, currentQueue, isLoading } = useSelector(
-    (state) => state.queue
-  );
-  const { currentTrack, isPlaying, play_pause } = useSelector(
-    (state) => state.currentTrack
-  );
-
+  const { tracks, currentQueue } = useSelector((state) => state.queue);
+  const { isPlaying, play_pause } = useSelector((state) => state.currentTrack);
+  const { shuffle } = useSelector((state) => state.settings);
+  //ROUTER
   const history = useHistory();
+  const location = useLocation();
+
+  let paginaAtual = location.pathname.split("/")[1];
+  let pesquisaAtual = location.pathname.split("/")[2];
+
+  if (paginaAtual === "") {
+    paginaAtual = "home";
+  } else if (paginaAtual === "search") {
+    paginaAtual = `search/${pesquisaAtual}`;
+  }
 
   const openPage = () => {
     //Mudar o state "isLoading" para true, para fazer com que a nova página espere que os resultados da API cheguem e só depois renderizar a pág em si
+
     dispatch({ type: "LOADING_PREVIEW" });
     const tipoPagina = type;
     history.push(`/${tipoPagina}/${id}`);
@@ -79,11 +89,18 @@ function CarouselItem({ item, id, type }) {
       } else {
         //e agora selecionamos a currentTrack para começar a tocar
         //Se for um album precisamos da fotografia do mesmo para dar display
+        if (shuffle === true) {
+          dispatch(shuffleArray(tracks));
+        }
         if (type === "album") {
           dispatch(setCurrentTrack(tracks[0], item.cover_small, type));
           //Se for uma playlist, não precisamos pq a musica em si já traz a foto da API
-        } else {
+        } else if (type === "playlist") {
           dispatch(setCurrentTrack(tracks[0], null, type));
+        } else if (type === "artist") {
+          dispatch(
+            setCurrentTrack(tracks[0], tracks[0].album.cover_small, type)
+          );
         }
 
         play_pause(action);
@@ -91,12 +108,10 @@ function CarouselItem({ item, id, type }) {
     } else {
       play_pause(action);
     }
-
-    // console.log(tracks);
   };
 
   //URL diferente consoante o tipo de media
-  let prevURL = chooseURL(type, id);
+  let prevURL = chooseURL(type, id, paginaAtual);
 
   return (
     <>

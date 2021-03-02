@@ -15,16 +15,22 @@ import RepeatOneIcon from "@material-ui/icons/RepeatOne";
 import { useSelector, useDispatch } from "react-redux";
 import { Controlo } from "../actions/currentTrackAction";
 import { play, pause } from "../actions/play_pause";
+import loadQueue from "../actions/queueAction";
 //UTIL
 import getTime from "../utility/getTime";
-import { playAudio } from "../utility/autoPlay";
+import { shuffleArray } from "../utility/shuffleTracks";
 //REDUX
 import setCurrentTrack from "../actions/currentTrackAction";
-import { setVolume, toogleRepeat } from "../actions/settingsAction";
+import {
+  setVolume,
+  toogleShuffle,
+  toogleRepeat,
+} from "../actions/settingsAction";
 
 function Player() {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
+
   //Temos que usar useState em vez de REDUX - Bug -> Enquanto a música tocava a preview abria e fechava sem parar, fazendo com que a aplicação bloqueasse
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
@@ -34,8 +40,10 @@ function Player() {
   const { currentTrack, isPlaying, trackAlbumPic } = useSelector(
     (state) => state.currentTrack
   );
-  const { tracks, queueType } = useSelector((state) => state.queue);
-  const { volume, repeat } = useSelector((state) => state.settings);
+  const { tracks, queueType, currentQueue } = useSelector(
+    (state) => state.queue
+  );
+  const { volume, shuffle, repeat } = useSelector((state) => state.settings);
 
   //Play / Pause Logic
   const playSongHandler = useCallback(
@@ -47,12 +55,6 @@ function Player() {
         await dispatch(play());
         //ERRO - consulta -> https://developers.google.com/web/updates/2017/06/play-request-was-interrupted
         audioRef.current.play();
-        // const playPromise = audioRef.current.play();
-        // if (playPromise !== undefined) {
-        //   playPromise.then((audio) => {
-        //     audioRef.current.play();
-        //   });
-        // }
       }
     },
     [dispatch]
@@ -74,74 +76,149 @@ function Player() {
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
+  //Quando se muda de volume
   const volumeDragHandler = (e) => {
     audioRef.current.volume = e.target.value / 100;
     dispatch(setVolume(e.target.value / 100));
   };
 
-  const skipTrackHandler = (direction) => {
-    let currentIndex = tracks.findIndex((song) => song.id === currentTrack.id);
-    //Ficou com código repetido por causa das fotos que não vêm formatadas com o mesmo nome da API e tivemos que acrescentar/repetir lógica para fazer essa distinção
-    if (queueType === "album") {
-      if (direction === "skip-back") {
-        if ((currentIndex - 1) % tracks.length === -1) {
-          dispatch(
-            setCurrentTrack(tracks[tracks.length - 1], trackAlbumPic, queueType)
-          );
-          playAudio(isPlaying, audioRef);
-          return;
-        }
-        dispatch(
-          setCurrentTrack(
-            tracks[(currentIndex - 1) % tracks.length],
-            trackAlbumPic,
-            queueType
-          )
-        );
-      } else {
-        dispatch(
-          setCurrentTrack(
-            tracks[(currentIndex + 1) % tracks.length],
-            trackAlbumPic,
-            queueType
-          )
-        );
-      }
-    } else if (queueType === "playlist") {
-      if (direction === "skip-back") {
-        if ((currentIndex - 1) % tracks.length === -1) {
-          dispatch(
+  const skipTrackHandler = async (direction) => {
+    //Try para quando se clicar no botão sem ter escolhido ainda uma queue
+    try {
+      let currentIndex = tracks.findIndex(
+        (song) => song.id === currentTrack.id
+      );
+      //Ficou com código repetido por causa das fotos que não vêm formatadas com o mesmo nome da API e tivemos que acrescentar/repetir lógica para fazer essa distinção
+      if (queueType === "album" || queueType === "artist") {
+        if (direction === "skip-back") {
+          if ((currentIndex - 1) % tracks.length === -1) {
+            await dispatch(
+              setCurrentTrack(
+                tracks[tracks.length - 1],
+                trackAlbumPic,
+                queueType
+              )
+            );
+            if (isPlaying) playSongHandler("play");
+            return;
+          }
+          await dispatch(
             setCurrentTrack(
-              tracks[tracks.length - 1],
-              tracks[tracks.length - 1].album.cover_small,
+              tracks[(currentIndex - 1) % tracks.length],
+              trackAlbumPic,
               queueType
             )
           );
-          playAudio(isPlaying, audioRef);
-          return;
+        } else {
+          await dispatch(
+            setCurrentTrack(
+              tracks[(currentIndex + 1) % tracks.length],
+              trackAlbumPic,
+              queueType
+            )
+          );
         }
-        dispatch(
-          setCurrentTrack(
-            tracks[(currentIndex - 1) % tracks.length],
-            tracks[(currentIndex - 1) % tracks.length].album.cover_small,
-            queueType
-          )
-        );
+      } else if (queueType === "playlist") {
+        if (direction === "skip-back") {
+          if ((currentIndex - 1) % tracks.length === -1) {
+            await dispatch(
+              setCurrentTrack(
+                tracks[tracks.length - 1],
+                tracks[tracks.length - 1].album.cover_small,
+                queueType
+              )
+            );
+            if (isPlaying) playSongHandler("play");
+            return;
+          }
+          await dispatch(
+            setCurrentTrack(
+              tracks[(currentIndex - 1) % tracks.length],
+              tracks[(currentIndex - 1) % tracks.length].album.cover_small,
+              queueType
+            )
+          );
+        } else {
+          await dispatch(
+            setCurrentTrack(
+              tracks[(currentIndex + 1) % tracks.length],
+              tracks[(currentIndex + 1) % tracks.length].album.cover_small,
+              queueType
+            )
+          );
+        }
+      }
+      //Se estiver a repetir uma música (lvl2) e se dermos skip, o repeat dá downgrade para lvl 1
+      if (repeat === 2) {
+        dispatch(toogleRepeat(1));
+      }
+      //Se a música estiver a tocar, a próxima também começará a tocar logo
+      if (isPlaying) playSongHandler("play");
+    } catch {}
+  };
+  //Quando uma música termina, a outra começa dependendo do suffle e do repeat
+  const songEndHandler = async () => {
+    //Repeat na posição 2 - Dar sempre play da mesma música
+    if (repeat === 2) {
+      let currentIndex = tracks.findIndex(
+        (song) => song.id === currentTrack.id
+      );
+      await dispatch(
+        setCurrentTrack(tracks[currentIndex], trackAlbumPic, queueType)
+      );
+      if (isPlaying) playSongHandler("play");
+      //Repeat na posição 1 - Música não nunca pára
+    } else if (repeat === 1) {
+      let currentIndex = tracks.findIndex(
+        (song) => song.id === currentTrack.id
+      );
+      await dispatch(
+        setCurrentTrack(
+          tracks[(currentIndex + 1) % tracks.length],
+          trackAlbumPic,
+          queueType
+        )
+      );
+      if (isPlaying) playSongHandler("play");
+    }
+    //Música pára quando chegar ao fim da queue
+    else {
+      let currentIndex = tracks.findIndex(
+        (song) => song.id === currentTrack.id
+      );
+      await dispatch(
+        setCurrentTrack(
+          tracks[(currentIndex + 1) % tracks.length],
+          trackAlbumPic,
+          queueType
+        )
+      );
+      if (isPlaying && currentIndex === tracks.length - 1) {
+        playSongHandler("pause");
       } else {
-        dispatch(
-          setCurrentTrack(
-            tracks[(currentIndex + 1) % tracks.length],
-            tracks[(currentIndex + 1) % tracks.length].album.cover_small,
-            queueType
-          )
-        );
+        playSongHandler("play");
       }
     }
-    playAudio(isPlaying, audioRef);
   };
 
   const suffleHandler = () => {
-    dispatch(toogleRepeat());
+    //Se estivermos a ativar o shuffle vai reordenar o array tracks
+    if (shuffle === false) {
+      try {
+        dispatch(shuffleArray(tracks));
+      } catch {}
+
+      //Se estivermos a desativar o shuffle vai voltar a implementar o array tracks original
+    } else {
+      try {
+        dispatch(loadQueue(currentQueue, queueType));
+      } catch {}
+    }
+
+    dispatch(toogleShuffle());
+  };
+  const repeatHandler = (n) => {
+    dispatch(toogleRepeat(n));
   };
   return (
     <>
@@ -151,6 +228,7 @@ function Player() {
           ref={audioRef}
           onTimeUpdate={timeUpdateHandler}
           onLoadedMetadata={timeUpdateHandler}
+          onEnded={songEndHandler}
         ></audio>
         <div className="player-playingNow">
           {currentTrack && (
@@ -167,7 +245,7 @@ function Player() {
         <div className="player-content">
           <div className="play-control">
             <ShuffleIcon
-              className={`shuffle ${repeat ? "shuffle-ativado" : ""}`}
+              className={`shuffle ${shuffle ? "shuffle-ativado" : ""}`}
               onClick={suffleHandler}
             />
             <span>
@@ -192,7 +270,23 @@ function Player() {
                 onClick={() => skipTrackHandler("skip-forward")}
               />
             </span>
-            <RepeatIcon className="repeat" />
+            {repeat === 0 ? (
+              <RepeatIcon className="repeat" onClick={() => repeatHandler(1)} />
+            ) : repeat === 1 ? (
+              <RepeatIcon
+                className="repeat"
+                onClick={() => repeatHandler(2)}
+                style={{ color: "#47cafb" }}
+              />
+            ) : repeat === 2 ? (
+              <RepeatOneIcon
+                className="repeatOne"
+                onClick={() => repeatHandler(0)}
+                style={{ color: "#47cafb" }}
+              />
+            ) : (
+              ""
+            )}
           </div>
           <div className="time-control">
             <p>
@@ -200,7 +294,7 @@ function Player() {
             </p>
             <input
               type="range"
-              min={0}
+              min={0.0}
               max={(currentTrack && parseInt(songInfo.duration)) || 0}
               value={(currentTrack && songInfo.currentTime) || 0}
               onChange={dragHandler}

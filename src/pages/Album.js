@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 //REDUX
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { loadAlbum } from "../actions/mediaDataAction";
-// ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
+//COMPONENTES
+import AlbumTrack from "./AlbumTrack";
 function Album() {
   //ROUTER
   const location = useLocation();
@@ -18,8 +17,17 @@ function Album() {
     dispatch(loadAlbum(pathID));
   }, [dispatch, pathID]);
 
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "LOADING_PREVIEW" });
+    };
+  }, [dispatch]);
+
   //CONSULTAR O QUE ESTÁ NO STATE (REDUX)
-  const { data: media, isLoading } = useSelector((state) => state.mediaData);
+  const { data: media, isLoading } = useSelector(
+    (state) => state.mediaData,
+    shallowEqual
+  );
   return (
     <>
       {!isLoading && (
@@ -52,17 +60,11 @@ function Album() {
               </thead>
               <tbody>
                 {media.tracks.data.map((chart) => (
-                  <tr key={chart.id} className="album-tr">
-                    <td className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </td>
-                    <td className="favorite-btn">
-                      <FavoriteBorderIcon />
-                    </td>
-                    <td className="music-title">{chart.title}</td>
-
-                    <td className="music-duration">{chart.duration}</td>
-                  </tr>
+                  <AlbumTrack
+                    chart={chart}
+                    previewData={media}
+                    key={chart.id}
+                  />
                 ))}
               </tbody>
             </table>

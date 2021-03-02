@@ -3,9 +3,8 @@ import { useLocation } from "react-router-dom";
 //REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { loadPlaylist } from "../actions/mediaDataAction";
-// ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+//Componentes
+import PlaylistTrack from "./PlaylistTrack";
 
 function Playlist() {
   //ROUTER
@@ -53,22 +52,11 @@ function Playlist() {
               </thead>
               <tbody>
                 {media.tracks.data.map((chart) => (
-                  <tr key={chart.id} className="playlist-tr">
-                    <td className="play-btn">
-                      <PlayCircleFilledWhiteIcon />
-                    </td>
-                    <td className="favorite-btn">
-                      <FavoriteBorderIcon />
-                    </td>
-                    <td className="music-title">{chart.title}</td>
-                    <td className="music-artist">
-                      <span>{chart.artist.name}</span>
-                    </td>
-                    <td className="music-artist">
-                      <span>{chart.album.title}</span>
-                    </td>
-                    <td className="music-duration">{chart.duration}</td>
-                  </tr>
+                  <PlaylistTrack
+                    chart={chart}
+                    previewData={media}
+                    key={chart.id}
+                  />
                 ))}
               </tbody>
             </table>

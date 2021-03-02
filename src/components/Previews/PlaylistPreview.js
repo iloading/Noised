@@ -1,8 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-//ICONS
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+
 //REDUX
 import { useDispatch } from "react-redux";
 //ROUTER
@@ -42,10 +40,6 @@ function PlaylistPreview({ novaPosition, exitHandler, previewData }) {
             <p>
               {previewData.nb_tracks} tracks <span></span>
             </p>
-          </div>
-          <div>
-            <OpenInNewIcon />
-            <p>Open Playlist</p>
           </div>
         </motion.div>
 

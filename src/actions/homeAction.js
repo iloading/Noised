@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
   topPlaylistsURL,
   topAlbumsURL,
@@ -9,16 +7,23 @@ import {
 
 //Criar uma Ação
 export const loadHome = () => async (dispatch) => {
-  const homePlaylistsData = await axios.get(topPlaylistsURL());
-  const homeArtistsData = await axios.get(topArtistsURL());
-  const homeAlbumsData = await axios.get(topAlbumsURL());
+  //Old Way
+  // const homePlaylistsData = await axios.get(topPlaylistsURL());
+  // const homeArtistsData = await axios.get(topArtistsURL());
+  // const homeAlbumsData = await axios.get(topAlbumsURL());
+
+  //New way
+  const homePlaylistsData = await topPlaylistsURL;
+  const homeArtistsData = await topArtistsURL;
+  const homeAlbumsData = await topAlbumsURL;
+
   // const homePodcastsData = await axios.get(topPodcastsURL());
   dispatch({
     type: "FETCH_HOME_MUSIC",
     payload: {
-      topPlaylists: homePlaylistsData.data.data,
-      topArtists: homeArtistsData.data.data,
-      topAlbums: homeAlbumsData.data.data,
+      topPlaylists: homePlaylistsData.data,
+      topArtists: homeArtistsData.data,
+      topAlbums: homeAlbumsData.data,
       // topPodcasts: homePodcastsData.data.data,
     },
   });

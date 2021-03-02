@@ -6,6 +6,10 @@
   top: 0;
   left: 0;
   z-index: 1;
+  display: inherit;
+}
+.card-shadow-hidden {
+  display: none;
 }
 .playlist {
   border-radius: 1rem;
@@ -28,7 +32,6 @@
   background-color: #2c2c3c;
   display: flex;
   align-items: center;
-
   height: 20%;
 
   img {
@@ -57,6 +60,9 @@
       overflow-y: hidden;
     }
   }
+}
+.tabelaPreviewFix {
+  height: 65% !important;
 }
 .tabelaPreview {
   height: 80%;
@@ -124,8 +130,10 @@
 
 .ArtistPreview {
   background-color: #2c2c3c;
-  align-items: center;
+  height: 35%;
   text-align: center;
+  display: flex;
+  align-items: center;
 
   .heightArtist {
     width: 100%;
@@ -170,5 +178,12 @@
 .heightArtist {
   img {
     cursor: pointer;
+  }
+}
+.topSongs {
+  td {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1.5rem 0.5rem;
   }
 }
